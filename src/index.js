@@ -4,10 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import StoryBook from "./pages/StoryBook/StoryBook";
 
+let useStoryBook = true;
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {!useStoryBook && <App />}
+    {useStoryBook && <StoryBook />}
   </React.StrictMode>,
   document.getElementById("root")
 );
