@@ -23,7 +23,7 @@ Mở trình duyệt đường link: [http://localhost:3000](http://localhost:300
 
 ### Lệnh pull code từ github
 
-`git clone https://github.com/kyunkakata/my-web-app.git`
+`git clone https://github.com/thuhang1999/my-web-app.git`
 
 rồi trỏ thư mục vào my-web-app/
 
