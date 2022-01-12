@@ -11,6 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* menu-page */
+.btn-group {
+  background-color: #00000000; /* mau nen cua chinh no*/
+  padding-top: 10px; /* khoang doi voi cac component nam ben trong no*/
+  margin: 10px; /* khoang cach doi cac component ben ngoai*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.menu .text-center .btn-group .btn {
+  margin: 10px;
+  background-color: green;
+  border-color: green;
+  border-radius: 15px;
+}
+
+.card-body .card-text {
+  color:green;
+}
+.menu .text-center .header-text {
+    color: blue; /* mau chu */
+    font-size: 20px; /* kich co chu*/
+
+  }
+
+
+
+.login-page {
+  width: 50%;
+}
+
 .order-group {
   display: flex;
   flex-direction: row;
