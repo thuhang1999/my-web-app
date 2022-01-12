@@ -2,20 +2,59 @@ import React, { Component } from "react";
 
 export default class SignUpPage extends Component {
   render() {
-    return <div className="sign-up">
-      <div className="h1">
-        <h1>Đăng ký thành viên</h1>
-      </div>
-      <div className="infor">
-        <label>Họ tên </label> <input type="text" /> <br></br>
-        <label>Số điện thoại </label><input type="text" /> <br />
-        <label>Mật khẩu </label><input type="password" /><br />
-        <label>Nhập lại mật khẩu </label><input type="password" /><br />
-      </div>
-      <div className="button">
-        <button>Đăng ký</button>
-      </div>
+    return (
+      <div id="CustomerLoginForm" class="form-vertical">
+        <form
+          accept-charset="UTF-8"
+          action="/account/login"
+          id="customer_login"
+          method="post"
+        >
+          <h1>Đăng nhập</h1>
 
-    </div>;
+          <label for="CustomerEmail" class="hidden-label">
+            Email
+          </label>
+          <input
+            type="email"
+            name="customer[email]"
+            id="CustomerEmail"
+            class="input-full"
+            placeholder="Email"
+            autocorrect="off"
+            autocapitalize="off"
+            autofocus=""
+          />
+
+          <label for="CustomerPassword" class="hidden-label">
+            Mật khẩu
+          </label>
+          <input
+            type="password"
+            value=""
+            name="customer[password]"
+            id="CustomerPassword"
+            class="input-full"
+            placeholder="Mật khẩu"
+          />
+          <p>
+            <input type="submit" class="btn btn--full" value="Đăng nhập" />
+          </p>
+          <p>
+            <a href="/">Trở về</a>
+          </p>
+          <p>
+            <a href="/account/register" id="customer_register_link">
+              Đăng kí
+            </a>
+          </p>
+          <p>
+            <a href="#recover" id="RecoverPassword">
+              Quên mật khẩu?
+            </a>
+          </p>
+        </form>
+      </div>
+    );
   }
 }
