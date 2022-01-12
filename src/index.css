@@ -12,6 +12,36 @@ code {
     monospace;
 }
 
+/* home page */
+.home-page .header-text {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.home-page .meal-type-gp-btn {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.home-page .meal-type-btn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.home-page .list-product-item {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  padding: auto;
+  margin: auto;
+}
+
 /* menu-page */
 .btn-group {
   background-color: #00000000; /* mau nen cua chinh no*/
@@ -31,15 +61,12 @@ code {
 }
 
 .card-body .card-text {
-  color:green;
+  color: green;
 }
 .menu .text-center .header-text {
-    color: blue; /* mau chu */
-    font-size: 20px; /* kich co chu*/
-
-  }
-
-
+  color: blue; /* mau chu */
+  font-size: 20px; /* kich co chu*/
+}
 
 .login-page {
   width: 50%;
@@ -50,6 +77,8 @@ code {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .order-group .order-group-item {
