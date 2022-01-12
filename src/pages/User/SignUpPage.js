@@ -28,7 +28,6 @@ export default class SignUpPage extends Component {
           Đăng ký
         </Button>
       </Form>
-
-    </div>;
+    </div>
   }
 }
