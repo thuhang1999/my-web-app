@@ -20,12 +20,15 @@ export default class LoginPage extends Component {
           <Form.Control type="password" placeholder="Nhập mật khẩu" />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Đăng nhập
-        </Button>
       </Form>
-      <a href="/user/sign-up">Đăng ký</a><br />
+      <Button className="btn" >
+        Đăng nhập
+      </Button>
+
+      <a href="/user/sign-up">Đăng ký</a>
+
       <a href="/user/quen-mk">Quên mật khẩu</a>
+
     </div>
   }
 }

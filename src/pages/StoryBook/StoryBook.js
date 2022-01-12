@@ -11,6 +11,6 @@ import MenuPage from "../Menu/MenuPage";
 
 export default class StoryBook extends Component {
   render() {
-    return <SignUpPage />;
+    return <LoginPage />;
   }
 }

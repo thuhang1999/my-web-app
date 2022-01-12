@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+ 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -74,4 +74,29 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.sign-up {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.sign-up .h1{
+  color: rgb(61, 59, 59);
+}
+.sign-up .submit-g-btn{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.login .btn{
+  background-color: green;
+  border-color: green;
+}
+.login .link{
+  color: green;
 }

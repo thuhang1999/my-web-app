@@ -24,9 +24,12 @@ export default class SignUpPage extends Component {
           <Form.Label>Nhập lại mật khẩu</Form.Label>
           <Form.Control type="password" placeholder="Nhập mật khẩu" />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Đăng ký
-        </Button>
+        <div className="submit-g-btn">
+          <Button variant="success" type="submit">
+            Đăng ký
+          </Button>
+          <a href="/user/quen-mk">Trở về</a>
+        </div>
       </Form>
     </div>
   }
