@@ -129,3 +129,39 @@ code {
 .login .link{
   color: green;
 }
+.store-infor .h1{
+  color: #333;
+  font-size: 24px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  text-align: center;
+}
+.store-infor .p{
+ padding-left: 5%;
+ padding-right: 5%;
+}
+.store-infor .img{
+  padding-top: 20px;
+  padding-bottom: 24px;
+  display: block;
+  margin-left: auto; 
+  margin-right: auto;
+}
+.store-infor .p1{
+  padding-top: 24px;
+  font-weight: bold;
+  font-style: italic;
+}
+.store-infor .p2{
+  font-weight: bold;
+  color:rgb(0, 51, 0);
+}
+.store-infor .p4{
+  font-weight: bold;
+  padding-bottom: 24px;
+}
+.store-infor .p5{
+  font-weight: bold;
+  font-style: italic;
+  text-align:  center;
+}

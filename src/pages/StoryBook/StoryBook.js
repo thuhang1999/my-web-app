@@ -7,10 +7,11 @@ import UserPage from "../User/UserPage";
 import ContactPage from "../Contact/ContactPage";
 import BottomNavigator from "src/components/commons/BottomNavigator";
 import MenuPage from "../Menu/MenuPage";
+import StoreInfoPage from "../StoreInfo/StoreInfoPage";
 
 
 export default class StoryBook extends Component {
   render() {
-    return <LoginPage />;
+    return <StoreInfoPage />;
   }
 }
