@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Breadcrumb, Button, Card } from "react-bootstrap";
+import { Breadcrumb, Button, Card, Pagination } from "react-bootstrap";
 
 export default class MenuPage extends Component {
   render() {
@@ -30,6 +30,24 @@ export default class MenuPage extends Component {
           <Button variant="primary">Go somewhere</Button>
         </Card.Body>
       </Card>
+      <Pagination>
+        <Pagination.First />
+        {/* <Pagination.Prev /> */}
+        <Pagination.Item>{1}</Pagination.Item>
+
+
+        <Pagination.Item>{2}</Pagination.Item>
+        <Pagination.Item>{3}</Pagination.Item>
+        <Pagination.Item active>{4}</Pagination.Item>
+        <Pagination.Ellipsis />
+        <Pagination.Item>{8}</Pagination.Item>
+        {/* <Pagination.Item disabled>{14}</Pagination.Item> */}
+
+        {/* <Pagination.Ellipsis />
+        <Pagination.Item>{20}</Pagination.Item> */}
+        {/* <Pagination.Next /> */}
+        <Pagination.Last />
+      </Pagination>
     </div>;
   }
 }

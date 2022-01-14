@@ -12,6 +12,6 @@ import StoreInfoPage from "../StoreInfo/StoreInfoPage";
 
 export default class StoryBook extends Component {
   render() {
-    return <StoreInfoPage />;
+    return <MenuPage />;
   }
 }
