@@ -2,10 +2,23 @@ const express = require("express");
 // const expressValidator = require('express-validator');
 const expressFlash = require("express-flash");
 const expressSession = require("express-session");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const upload = multer();
 const cors = require("cors");
 
 const mysql = require("mysql");
 const app = express();
+
+// for parsing application/json
+app.use(bodyParser.json());
+
+// for parsing application/xww-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// for parsing multipart/form-data
+app.use(upload.array());
+app.use(express.static("public"));
 
 // configure
 app.use(
@@ -47,7 +60,7 @@ connection.on("connection", (stream) => {
   console.log("connected");
 });
 
-// products control
+// get list products
 app.get("/api/get_products", (req, res) => {
   let sortType = req.query["sort_type"];
   let sortName = req.query["sort_name"];
@@ -109,12 +122,67 @@ app.get("/api/get_products", (req, res) => {
   });
 });
 
+// get list product types
 app.get("/api/get_product_type", (req, res) => {
   let sql = "SELECT * FROM `product_type`";
 
   connection.query(sql, function (err, results) {
     if (err) throw err;
     res.json({ data: results, req: req.params });
+  });
+});
+
+// user sign up
+app.post("/api/user/sign_up", (req, res) => {
+  console.log(req.body);
+  // let userName = req.body['user_name'];
+  let userPhone = req.body["phone"];
+  let userPassword = req.body["password"];
+  let sql = `INSERT INTO customers (phone_number, password) VALUES ("${userPhone}", "${userPassword}")`;
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json({ data: results });
+  });
+});
+
+app.post("/api/user/update_info/:cust_id", (req, res) => {
+  let sql = "UPDATE customers\nSET";
+  let customer_id = req.params.cust_id;
+  /**
+   * UPDATE Customers
+      SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+      WHERE CustomerID = 1;
+   */
+  let userName = req.body["name"];
+  let userPhone = req.body["phone"];
+  let userAddress = req.body["address"];
+  let password = req.body["password"];
+  let rank = req.body["rank"];
+
+  if (userName) {
+    sql += ` name = "${userName}", `;
+  }
+  if (userPhone) {
+    sql += ` phone = "${userPhone}", `;
+  }
+  if (userAddress) {
+    sql += ` address = "${userAddress}", `;
+  }
+
+  if (password) {
+    sql += ` password = "${password}", `;
+  }
+  if (rank) {
+    sql += ` rank = "${rank}", `;
+  }
+
+  sql = sql.slice(0, sql.length - 2);
+
+  sql += `\nWHERE customer_id = ${customer_id}`;
+  console.log("{RNLog} TCL --> sql:", sql);
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json({ data: results });
   });
 });
 
