@@ -8,6 +8,7 @@ import BottomNavigator from "src/components/commons/BottomNavigator";
 import Button from "react-bootstrap/Button";
 import LargeProductItem from "src/components/items/products/LargeProductItem";
 import { CardGroup } from "react-bootstrap";
+import Api from "src/apis";
 
 let TEST_DATA = [
   {
@@ -67,6 +68,32 @@ let TEST_DATA = [
 ];
 
 export default class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+      productTypes: [],
+    };
+  }
+
+  componentDidMount() {
+    Api.fetchProducts({
+      per_page: 12,
+    }).then((res) => {
+      let products = res.data?.data;
+      if (Array.isArray(products)) {
+        this.setState({ products });
+      }
+    });
+
+    Api.fetchProductTypes().then((res) => {
+      let productTypes = res.data?.data;
+      if (Array.isArray(productTypes)) {
+        this.setState({ productTypes: productTypes.slice(0, 6) });
+      }
+    });
+  }
+
   render() {
     return (
       <div className="home-page">
@@ -83,29 +110,22 @@ export default class HomePage extends Component {
   }
 
   renderMainContent() {
+    const { products, productTypes } = this.state;
     return (
       <div>
         {/* ------------- chọn loại món ăn------------- */}
         <div className="meal-type-gp-btn">
-          <Button className="meal-type-btn" variant="primary">
-            Món 1
-          </Button>{" "}
-          <Button className="meal-type-btn" variant="primary">
-            Món 2
-          </Button>{" "}
-          <Button className="meal-type-btn" variant="primary">
-            Món 3
-          </Button>{" "}
-          <Button className="meal-type-btn" variant="primary">
-            Món 4
-          </Button>{" "}
-          <Button className="meal-type-btn" variant="primary">
-            Món 5
-          </Button>
+          {productTypes.map((e) => (
+            <>
+              <Button className="meal-type-btn" variant="primary">
+                {e.product_type_name}
+              </Button>{" "}
+            </>
+          ))}
         </div>
         <div className="list-product-item">
           <CardGroup>
-            {TEST_DATA.map((e) => (
+            {products.map((e) => (
               <LargeProductItem data={e} />
             ))}
           </CardGroup>

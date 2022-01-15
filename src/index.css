@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
- 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -40,6 +40,21 @@ code {
   justify-content: center;
   padding: auto;
   margin: auto;
+}
+/* Large Product Item*/
+.lg-product-item-desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.lg-product-item-price {
+  font-size: 16px;
+  color: black !important;
+  font-weight: bold;
 }
 
 /* menu-page */
@@ -109,10 +124,10 @@ code {
   align-items: center;
   flex-direction: column;
 }
-.sign-up .h1{
+.sign-up .h1 {
   color: rgb(61, 59, 59);
 }
-.sign-up .submit-g-btn{
+.sign-up .submit-g-btn {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -122,46 +137,46 @@ code {
   align-items: center;
   flex-direction: column;
 }
-.login .btn{
+.login .btn {
   background-color: green;
   border-color: green;
 }
-.login .link{
+.login .link {
   color: green;
 }
-.store-infor .h1{
+.store-infor .h1 {
   color: #333;
   font-size: 24px;
   padding-top: 20px;
   padding-bottom: 15px;
   text-align: center;
 }
-.store-infor .p{
- padding-left: 5%;
- padding-right: 5%;
+.store-infor .p {
+  padding-left: 5%;
+  padding-right: 5%;
 }
-.store-infor .img{
+.store-infor .img {
   padding-top: 20px;
   padding-bottom: 24px;
   display: block;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
 }
-.store-infor .p1{
+.store-infor .p1 {
   padding-top: 24px;
   font-weight: bold;
   font-style: italic;
 }
-.store-infor .p2{
+.store-infor .p2 {
   font-weight: bold;
-  color:rgb(0, 51, 0);
+  color: rgb(0, 51, 0);
 }
-.store-infor .p4{
+.store-infor .p4 {
   font-weight: bold;
   padding-bottom: 24px;
 }
-.store-infor .p5{
+.store-infor .p5 {
   font-weight: bold;
   font-style: italic;
-  text-align:  center;
+  text-align: center;
 }

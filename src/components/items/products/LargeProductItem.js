@@ -8,12 +8,18 @@ export default class LargeProductItem extends Component {
     return (
       <div>
         <Card style={{ width: "18rem", margin: "1rem" }}>
-          <Card.Img variant="top" src={product.img} />
+          <Card.Img
+            variant="top"
+            src={product.image}
+            style={{ width: "18rem", height: "12rem" }}
+          />
           <Card.Body>
-            <Card.Title>{product.title}</Card.Title>
-            <Card.Text>{product.desc}</Card.Text>
+            <Card.Title>{product.product_name}</Card.Title>
+            <Card.Text className="lg-product-item-desc">
+              {product.description}
+            </Card.Text>
             <Card.Text className="lg-product-item-price">
-              Giá: {product.price} Đ
+              Giá: {Number(product.price).toLocaleString("vi")} đ
             </Card.Text>
             <Button variant="primary" onClick={this.props.onClick}>
               Thêm vào giỏ hàng

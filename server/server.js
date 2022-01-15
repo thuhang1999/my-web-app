@@ -2,6 +2,7 @@ const express = require("express");
 // const expressValidator = require('express-validator');
 const expressFlash = require("express-flash");
 const expressSession = require("express-session");
+const cors = require("cors");
 
 const mysql = require("mysql");
 const app = express();
@@ -15,6 +16,8 @@ app.use(
     cookie: { maxAge: 60000 },
   })
 );
+
+app.use(cors());
 app.use(expressFlash());
 // app.use(expressValidator());
 
@@ -46,13 +49,72 @@ connection.on("connection", (stream) => {
 
 // products control
 app.get("/api/get_products", (req, res) => {
-  let sql = "SELECT * FROM `products` WHERE 1";
-  // if (req.query.filter && req.query.filter !== "undefined") {
-  //   sql = `SELECT * FROM danh_muc_hang WHERE ma_loai_hang = "${req.query.filter}";`;
-  // }
+  let sortType = req.query["sort_type"];
+  let sortName = req.query["sort_name"];
+
+  let sql = "SELECT * FROM `products` WHERE ";
+
+  // Lọc sản phẩm theo Loại sản phẩm
+  let filterBaseonCondition = (type) => {
+    if (type) {
+      return `product_type_id = "${type}"`;
+    }
+    return "1";
+  };
+
+  // phân trang
+
+  let productType = req.query["product_type_id"];
+
+  // Thêm điều kiện lọc sản phẩm theo Loại sản phẩm.
+  sql += filterBaseonCondition(productType);
+
+  /**
+   * Sắp xếp theo các điều kiện:
+   * theo sản phẩm bán chạy: undefined;
+   * theo bảng chữ cái: name
+   * theo giá: price
+   *  theo mới nhất: created_at
+   * @param {'name' | 'price' | 'created_at' | undefined} sortName 'name' | 'price' | 'created_at';
+   * @param {'asc' | 'desc' | undefined} sortingType asc | desc | undefined;
+   */
+  let sortBaseonCondition = (sortName, sortingType) => {
+    switch (sortName) {
+      case "name":
+        return `\nORDER BY product_name ${sortingType === "asc" ? "" : "DESC"}`;
+      case "price":
+        return `\nORDER BY price ${sortingType === "asc" ? "" : "DESC"}`;
+      default:
+        return null;
+    }
+  };
+
+  // Sắp xếp theo điều các điều kiện;
+  let sortSqlQuery = sortBaseonCondition(sortName, sortType);
+  if (sortSqlQuery) {
+    sql += sortSqlQuery;
+  }
+
+  // Phân trang sản phẩm.
+  let pageNumber = req.query["page"] ?? 1;
+  let numberPerPage = req.query["per_page"] ?? 10;
+  sql += `\nLIMIT ${numberPerPage} OFFSET ${(pageNumber - 1) * numberPerPage}`;
+  console.log("{RNLog} TCL --> sql:", sql);
+
+  console.log("{RNLog} TCL --> query:", req.query, req.params);
+
   connection.query(sql, function (err, results) {
     if (err) throw err;
     res.json({ data: results });
+  });
+});
+
+app.get("/api/get_product_type", (req, res) => {
+  let sql = "SELECT * FROM `product_type`";
+
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json({ data: results, req: req.params });
   });
 });
 
