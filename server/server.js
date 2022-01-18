@@ -145,6 +145,9 @@ app.post("/api/user/sign_up", (req, res) => {
   });
 });
 
+/**
+ * Cập nhật thông tin của người dùng
+ */
 app.post("/api/user/update_info/:cust_id", (req, res) => {
   let sql = "UPDATE customers\nSET";
   let customer_id = req.params.cust_id;
@@ -180,6 +183,20 @@ app.post("/api/user/update_info/:cust_id", (req, res) => {
 
   sql += `\nWHERE customer_id = ${customer_id}`;
   console.log("{RNLog} TCL --> sql:", sql);
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json({ data: results });
+  });
+});
+
+/**
+ * Đăng nhập tài khoản
+ */
+app.post("/api/user/login", (req, res) => {
+  let userPhone = req.body["phone"];
+  let password = req.body["password"];
+
+  let sql = `SELECT id, phone, password FROM users WHERE username = ${userPhone}} AND password = ${password}`;
   connection.query(sql, function (err, results) {
     if (err) throw err;
     res.json({ data: results });

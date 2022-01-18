@@ -78,7 +78,7 @@ export default class HomePage extends Component {
 
   componentDidMount() {
     Api.fetchProducts({
-      per_page: 12,
+      per_page: 15,
     }).then((res) => {
       let products = res.data?.data;
       if (Array.isArray(products)) {
@@ -100,8 +100,8 @@ export default class HomePage extends Component {
         {this.renderCarousel()}
         <OrderGroupButton />
         <div className="header-text">
-          Với thực đơn gần 100 món ăn, đậm chất miền Nam Bộ, nhà hàng Phương Nam
-          chắc chắn sẽ chinh phục được vị giác của bạn chỉ sau 1 lần thử!
+          Với thực đơn gần 100 món ăn, nhà hàng Hiệp Thương chắc chắn sẽ chinh
+          phục được vị giác của bạn chỉ sau 1 lần thử!
         </div>
         {this.renderMainContent()}
         <BottomNavigator />
@@ -117,7 +117,10 @@ export default class HomePage extends Component {
         <div className="meal-type-gp-btn">
           {productTypes.map((e) => (
             <>
-              <Button className="meal-type-btn" variant="primary">
+              <Button
+                className="meal-type-btn"
+                onClick={this.onClickChangeType(e.product_type_id)}
+              >
                 {e.product_type_name}
               </Button>{" "}
             </>
@@ -130,29 +133,46 @@ export default class HomePage extends Component {
             ))}
           </CardGroup>
         </div>
+        <div className="btn-viewmore">
+          <Button variant="success">Xem thêm</Button>
+        </div>
       </div>
     );
   }
 
   renderCarousel() {
     return (
-      <Carousel>
+      <Carousel onClick={this.onClickCarousel}>
         <Carousel.Item>
           <img className={"d-block w-100"} src={slider1} alt="First slide" />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <h1>Ẩm thực Định Hoá</h1>
+            <p>
+              Với thực đơn gần 100 món ăn, nhà hàng Hiệp Thương chắc chắn sẽ
+              chinh phục được vị giác của bạn chỉ sau 1 lần thử!
+            </p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img className={"d-block w-100"} src={slider2} alt="Second slide" />
 
           <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h1>Ẩm thực Định Hoá</h1>
+            <p>
+              Với thực đơn gần 100 món ăn, nhà hàng Hiệp Thương chắc chắn sẽ
+              chinh phục được vị giác của bạn chỉ sau 1 lần thử!
+            </p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
     );
   }
+
+  onClickChangeType = (product_type_id) => () => {
+    console.log("{RNLog} TCL --> product type id:", product_type_id);
+  };
+
+  onClickCarousel = () => {
+    console.log("{RNLog} TCL --> this.props:", this.props);
+  };
 }

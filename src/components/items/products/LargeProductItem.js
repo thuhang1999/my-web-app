@@ -14,15 +14,17 @@ export default class LargeProductItem extends Component {
             style={{ width: "18rem", height: "12rem" }}
           />
           <Card.Body>
-            <Card.Title>{product.product_name}</Card.Title>
+            <Card.Title className="lg-product-item-title">
+              {product.product_name}
+            </Card.Title>
             <Card.Text className="lg-product-item-desc">
               {product.description}
             </Card.Text>
             <Card.Text className="lg-product-item-price">
               Giá: {Number(product.price).toLocaleString("vi")} đ
             </Card.Text>
-            <Button variant="primary" onClick={this.props.onClick}>
-              Thêm vào giỏ hàng
+            <Button variant="success" onClick={this.props.onClick}>
+              Order
             </Button>
           </Card.Body>
         </Card>
