@@ -1,53 +1,121 @@
 import React, { Component } from "react";
-import { Breadcrumb, Button, Card, Pagination } from "react-bootstrap";
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  CardGroup,
+  Pagination,
+} from "react-bootstrap";
+import Api from "src/apis";
+import BottomNavigator from "src/components/commons/BottomNavigator";
+import OrderGroupButton from "src/components/commons/OrderGroupButton";
+import ExtraLgProductItem from "src/components/items/products/ExtraLgProductItem";
 
 export default class MenuPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+      productTypes: [],
+    };
+  }
+
+  componentDidMount() {
+    Api.fetchProducts({
+      per_page: 16,
+    }).then((res) => {
+      let products = res.data?.data;
+      if (Array.isArray(products)) {
+        this.setState({ products });
+      }
+    });
+
+    Api.fetchProductTypes().then((res) => {
+      let productTypes = res.data?.data;
+      if (Array.isArray(productTypes)) {
+        this.setState({ productTypes: productTypes.slice(0, 6) });
+      }
+    });
+  }
+
   render() {
-    return <div className="menu">Menu
-      <Card className="text-center">
-        <Card.Header>Featured</Card.Header>
+    return (
+      <div className="menu">
+        <OrderGroupButton />
+        {this.renderMealType()}
+        {this.renderMainContent()}
+        <Pagination className="pagination-container">
+          {/* <Pagination.First /> */}
+          {/* <Pagination.Prev /> */}
+          <Pagination.Item active>{1}</Pagination.Item>
+
+          <Pagination.Item>{2}</Pagination.Item>
+          <Pagination.Item>{3}</Pagination.Item>
+          <Pagination.Item>{4}</Pagination.Item>
+          <Pagination.Ellipsis />
+          <Pagination.Item>{8}</Pagination.Item>
+          {/* <Pagination.Item disabled>{14}</Pagination.Item> */}
+
+          {/* <Pagination.Ellipsis />
+        <Pagination.Item>{20}</Pagination.Item> */}
+          {/* <Pagination.Next /> */}
+          <Pagination.Last />
+        </Pagination>
+        <BottomNavigator />
+      </div>
+    );
+  }
+
+  renderMainContent() {
+    const { products, productTypes } = this.state;
+
+    return (
+      <Card className="list">
         <Card.Body>
-          <Card.Title className="header-text">Tất cả sản phẩm</Card.Title>
           <Breadcrumb>
-            <Breadcrumb.Item href="#" c>Trang chủ</Breadcrumb.Item>
+            <Breadcrumb.Item href="#" c>
+              Trang chủ
+            </Breadcrumb.Item>
             <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
               Tất cả sản phẩm
             </Breadcrumb.Item>
-            <Breadcrumb.Item active>Data</Breadcrumb.Item>
+            <Breadcrumb.Item active>Sản phẩm bán chạy</Breadcrumb.Item>
           </Breadcrumb>
-
-          <div className="btn-group">
-            {/* <Button className="btn" href="#">Link</Button> <Button type="submit">Button</Button>{' '} */}
-            {/* <Button className="btn" as="input" type="button" value="Input" />{' '} */}
-            {/* <Button className="btn" as="input" type="submit" value="Submit" />{' '} */}
-            <Button className="btn" as="input" type="reset" value="Reset" />
-            <Button className="btn" as="input" type="reset" value="Reset" />
-
+          <div className="list-product-item">
+            <CardGroup>
+              {products.map((e) => (
+                <ExtraLgProductItem data={e} />
+              ))}
+            </CardGroup>
           </div>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional content.
-          </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
         </Card.Body>
       </Card>
-      <Pagination>
-        <Pagination.First />
-        {/* <Pagination.Prev /> */}
-        <Pagination.Item>{1}</Pagination.Item>
-
-
-        <Pagination.Item>{2}</Pagination.Item>
-        <Pagination.Item>{3}</Pagination.Item>
-        <Pagination.Item active>{4}</Pagination.Item>
-        <Pagination.Ellipsis />
-        <Pagination.Item>{8}</Pagination.Item>
-        {/* <Pagination.Item disabled>{14}</Pagination.Item> */}
-
-        {/* <Pagination.Ellipsis />
-        <Pagination.Item>{20}</Pagination.Item> */}
-        {/* <Pagination.Next /> */}
-        <Pagination.Last />
-      </Pagination>
-    </div>;
+    );
   }
+
+  renderMealType() {
+    const { products, productTypes } = this.state;
+    console.log(
+      `{RNLog} ~ file: MenuPage.js ~ line 98 ~ MenuPage ~ renderMealType ~ productTypes`,
+      productTypes
+    );
+    return (
+      <div className="meal-type-gp-btn">
+        {productTypes.map((e) => (
+          <>
+            <Button
+              className="meal-type-btn"
+              onClick={this.onClickChangeType(e.product_type_id)}
+            >
+              {e.product_type_name}
+            </Button>{" "}
+          </>
+        ))}
+      </div>
+    );
+  }
+
+  onClickChangeType = (product_type_id) => () => {
+    console.log("{RNLog} TCL --> product type id:", product_type_id);
+  };
 }
