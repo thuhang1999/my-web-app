@@ -386,3 +386,13 @@ code {
 .contact .mb-3 {
   width: 500px;
 }
+
+.tb_1 .tb_product_management{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.tb_1 .tb_product_management ent table, th, td {
+    border: 1px solid black;
+  
+}
