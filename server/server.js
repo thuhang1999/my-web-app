@@ -42,7 +42,7 @@ const connection = mysql.createConnection({
   database: "restaurant1_db",
 });
 connection.connect(function (err) {
-  console.log("{RNLog} TCL --> errr:");
+  console.log("{RNLog} TCL --> errr:", err);
   // err ? console.log(err) : console.log("connection===", connection);
 });
 connection.on("error", function (err) {
