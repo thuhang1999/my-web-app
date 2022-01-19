@@ -60,7 +60,10 @@ connection.on("connection", (stream) => {
   console.log("connected");
 });
 
-// get list products
+/**
+ * Lấy danh sách sản phẩm được xếp theo các tiêu chí,
+ * lọc theo loại sản phẩm
+ */
 app.get("/api/get_products", (req, res) => {
   let sortType = req.query["sort_type"];
   let sortName = req.query["sort_name"];
@@ -122,7 +125,23 @@ app.get("/api/get_products", (req, res) => {
   });
 });
 
-// get list product types
+/**
+ * Lấy danh sách sản phẩm theo từ khoá tìm kiếm
+ */
+app.get("/api/products/search", (req, res) => {
+  let name = req.query["name"];
+
+  let sql = `SELECT * FROM \`products\` WHERE product_name LIKE '%${name}%' ORDER BY product_name`;
+
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json({ data: results, req: req.params });
+  });
+});
+
+/**
+ * Lấy danh sách loại sản phẩm
+ */
 app.get("/api/get_product_type", (req, res) => {
   let sql = "SELECT * FROM `product_type`";
 
@@ -132,7 +151,33 @@ app.get("/api/get_product_type", (req, res) => {
   });
 });
 
-// user sign up
+/**
+ * Lấy danh sách khách hàng
+ */
+app.get("/api/users", (req, res) => {
+  let sql = "SELECT * FROM `customers`";
+
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json({ data: results });
+  });
+});
+
+/**
+ * Lấy danh sách thông tin liên hệ user đã nhập
+ */
+app.get("/api/contacts", (req, res) => {
+  let sql = "SELECT * FROM `contact_data`";
+
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    res.json({ data: results });
+  });
+});
+
+/**
+ * Đăng kí tài khoản
+ */
 app.post("/api/user/sign_up", (req, res) => {
   console.log(req.body);
   // let userName = req.body['user_name'];
