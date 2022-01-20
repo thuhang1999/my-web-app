@@ -23,3 +23,24 @@ export const fetchProductTypes = (params) => {
     params,
   });
 };
+
+export const searchProducts = (name) => {
+  return axios.get(`${BASE_URL}/api/products/search`, {
+    params: {
+      name,
+    },
+  });
+};
+
+export const createUserAccount = (userName, userPhone, userPass) => {
+  let formData = new FormData();
+  formData.append("user_name", userName);
+  formData.append("phone", userPhone);
+  formData.append("password", userPass);
+  return axios({
+    method: "post",
+    url: `${BASE_URL}/api/user/sign_up`,
+    data: formData,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};

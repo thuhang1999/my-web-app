@@ -10,8 +10,9 @@ import Api from "src/apis";
 import BottomNavigator from "src/components/commons/BottomNavigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
 import ExtraLgProductItem from "src/components/items/products/ExtraLgProductItem";
+import { withParams } from "src/utils/commons/withParams";
 
-export default class MenuPage extends Component {
+class MenuPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,14 +22,24 @@ export default class MenuPage extends Component {
   }
 
   componentDidMount() {
-    Api.fetchProducts({
-      per_page: 16,
-    }).then((res) => {
-      let products = res.data?.data;
-      if (Array.isArray(products)) {
-        this.setState({ products });
-      }
-    });
+    let searchName = this.props.params.get("name");
+    if (searchName) {
+      Api.searchProducts(searchName).then((res) => {
+        let products = res.data?.data;
+        if (Array.isArray(products)) {
+          this.setState({ products });
+        }
+      });
+    } else {
+      Api.fetchProducts({
+        per_page: 16,
+      }).then((res) => {
+        let products = res.data?.data;
+        if (Array.isArray(products)) {
+          this.setState({ products });
+        }
+      });
+    }
 
     Api.fetchProductTypes().then((res) => {
       let productTypes = res.data?.data;
@@ -36,6 +47,19 @@ export default class MenuPage extends Component {
         this.setState({ productTypes: productTypes.slice(0, 6) });
       }
     });
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    let name = this.props.params.get("name");
+    let searchName = nextProps.params.get("name");
+    if (name !== searchName && searchName) {
+      Api.searchProducts(searchName).then((res) => {
+        let products = res.data?.data;
+        if (Array.isArray(products)) {
+          this.setState({ products });
+        }
+      });
+    }
   }
 
   render() {
@@ -119,3 +143,5 @@ export default class MenuPage extends Component {
     console.log("{RNLog} TCL --> product type id:", product_type_id);
   };
 }
+
+export default withParams(MenuPage);

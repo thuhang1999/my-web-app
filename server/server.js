@@ -180,10 +180,11 @@ app.get("/api/contacts", (req, res) => {
  */
 app.post("/api/user/sign_up", (req, res) => {
   console.log(req.body);
-  // let userName = req.body['user_name'];
+  let userName = req.body["user_name"];
   let userPhone = req.body["phone"];
   let userPassword = req.body["password"];
-  let sql = `INSERT INTO customers (phone_number, password) VALUES ("${userPhone}", "${userPassword}")`;
+  let sql = `INSERT INTO customers (name, phone_number, password) VALUES ("${userName}", "${userPhone}", "${userPassword}")`;
+  console.log(`{RNLog} ~ file: server.js ~ line 187 ~ app.post ~ sql`, sql);
   connection.query(sql, function (err, results) {
     if (err) throw err;
     res.json({ data: results });
