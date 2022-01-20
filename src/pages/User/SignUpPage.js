@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
+import Api from "src/apis";
 import BottomNavigator from "src/components/commons/BottomNavigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
+import { withRouter } from "src/utils/commons/withRouter";
 
-export default class SignUpPage extends Component {
+class SignUpPage extends Component {
   render() {
     return (
       <div className="sign-up">
@@ -22,22 +24,48 @@ export default class SignUpPage extends Component {
         </div>
         <Form className="form">
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="text" placeholder="Nhập họ tên" />
+            <Form.Control
+              type="text"
+              placeholder="Nhập họ tên"
+              onChange={this.onChangeUserName}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="text" placeholder="Nhập số điện thoại" />
+            <Form.Control
+              type="text"
+              placeholder="Nhập số điện thoại"
+              onChange={this.onChangePhone}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Nhập mật khẩu" />
+            <Form.Control
+              type="password"
+              placeholder="Nhập mật khẩu"
+              onChange={this.onChangePassword}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Nhập mật khẩu" />
+            <Form.Control
+              type="password"
+              placeholder="Nhập lại mật khẩu"
+              onChange={this.onChangePassword2}
+            />
           </Form.Group>
           <div className="submit-g-btn">
-            <Button variant="success" type="submit" className="submit-btn">
+            <Button
+              variant="success"
+              type="submit"
+              className="submit-btn"
+              onClick={this.onClickSignUp}
+            >
               Đăng ký
             </Button>
-            <Button variant="success" type="submit" className="submit-btn">
+            <Button
+              variant="success"
+              type="submit"
+              className="submit-btn"
+              onClick={this.onClickLogin}
+            >
               Đăng nhập
             </Button>
           </div>
@@ -45,4 +73,36 @@ export default class SignUpPage extends Component {
       </>
     );
   }
+
+  onChangeUserName = (event) => {
+    this.userName = event.target.value;
+  };
+
+  onChangePhone = (event) => {
+    this.phone = event.target.value;
+  };
+
+  onChangePassword = (event) => {
+    this.password = event.target.value;
+  };
+
+  onChangePassword2 = (event) => {
+    this.password2 = event.target.value;
+  };
+
+  onClickSignUp = (event) => {
+    event.preventDefault();
+    console.log("{RNLog} TCL --> this:", this);
+    Api.createUserAccount(this.userName, this.phone, this.password).then(
+      (res) => {
+        console.log("{RNLog} TCL --> res:", res);
+      }
+    );
+  };
+
+  onClickLogin = () => {
+    this.props.navigate("/user/login");
+  };
 }
+
+export default withRouter(SignUpPage);

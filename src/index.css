@@ -166,11 +166,36 @@ code {
 
 .topbar {
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.topbar-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 20px;
 }
 
 .top-nav-link {
   color: white !important;
   font-size: 18px;
+  font-weight: 400 !important;
+}
+
+.top-nav-link-user {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  margin: auto !important;
+  color: white !important;
+  font-size: 18px !important;
   font-weight: 400 !important;
 }
 
@@ -387,12 +412,13 @@ code {
   width: 500px;
 }
 
-.tb_1 .tb_product_management{
+.tb_1 .tb_product_management {
   margin-left: 5%;
   margin-right: 5%;
 }
 
-.tb_1 .tb_product_management ent table, th, td {
-    border: 1px solid black;
-  
+.tb_1 .tb_product_management ent table,
+th,
+td {
+  border: 1px solid black;
 }
