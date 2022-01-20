@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 
-export default class ProductDetailPage extends Component {
+export default class ContactManagementDetailPage extends Component {
     render() {
         return <div>
             <h1>Chi tiết sản phẩm</h1>

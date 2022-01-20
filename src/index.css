@@ -396,3 +396,7 @@ code {
     border: 1px solid black;
   
 }
+.tb_order .img{
+  width: 60px;
+  height: 50px;
+}
