@@ -99,6 +99,7 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-page">
+        <Navigator />
         {this.renderCarousel()}
         <OrderGroupButton />
         <div className="header-text">

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import BottomNavigator from "src/components/commons/BottomNavigator";
+import Navigator from "src/components/commons/Navigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
 
 export default class LoginPage extends Component {
   render() {
     return (
       <div className="login">
+        <Navigator />
         <div className="h1">
           <h1>Đăng nhập</h1>
         </div>

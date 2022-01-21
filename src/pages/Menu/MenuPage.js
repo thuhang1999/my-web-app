@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import Api from "src/apis";
 import BottomNavigator from "src/components/commons/BottomNavigator";
+import Navigator from "src/components/commons/Navigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
 import ExtraLgProductItem from "src/components/items/products/ExtraLgProductItem";
 import { withParams } from "src/utils/commons/withParams";
@@ -65,6 +66,7 @@ class MenuPage extends Component {
   render() {
     return (
       <div className="menu">
+        <Navigator />
         <OrderGroupButton />
         {this.renderMealType()}
         {this.renderMainContent()}
@@ -100,9 +102,7 @@ class MenuPage extends Component {
             <Breadcrumb.Item href="#" c>
               Trang chủ
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
-              Tất cả sản phẩm
-            </Breadcrumb.Item>
+            <Breadcrumb.Item href="/menu">Tất cả sản phẩm</Breadcrumb.Item>
             <Breadcrumb.Item active>Sản phẩm bán chạy</Breadcrumb.Item>
           </Breadcrumb>
           <div className="list-product-item">

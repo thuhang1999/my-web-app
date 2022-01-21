@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import Api from "src/apis";
 import BottomNavigator from "src/components/commons/BottomNavigator";
+import Navigator from "src/components/commons/Navigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
 import { withRouter } from "src/utils/commons/withRouter";
 
@@ -9,6 +10,7 @@ class SignUpPage extends Component {
   render() {
     return (
       <div className="sign-up">
+        <Navigator />
         <OrderGroupButton />
         {this.renderMainContent()}
         <BottomNavigator />

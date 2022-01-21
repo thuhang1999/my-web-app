@@ -1,15 +1,16 @@
 import React, { createContext, useReducer } from "react";
 const CART_DATA_CACHE_KEY = "cart_data_cache_key";
-localStorage.setItem(CART_DATA_CACHE_KEY, null);
+// localStorage.setItem(CART_DATA_CACHE_KEY, null);
 
 let cartLocalData = JSON.parse(localStorage.getItem(CART_DATA_CACHE_KEY)) ?? [];
+console.log(
+  `{RNLog} ~ file: AppStore.js ~ line 6 ~ cartLocalData`,
+  cartLocalData
+);
 const initialState = {
   user: null,
   carts: cartLocalData,
-  cartAmount: cartLocalData.reduce(
-    (prev, curr) => prev.amount + curr.amount,
-    0
-  ),
+  cartAmount: cartLocalData.reduce((prev, e) => prev + e.amount, 0),
 };
 
 export const store = createContext(initialState);
@@ -20,16 +21,17 @@ export const ACTION_TYPE = {
   ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
   REMOVE_ITEM_TO_CART: "REMOVE_ITEM_TO_CART",
   FETCH_LOCAL_CART: "FETCH_LOCAL_CART",
+  RESET_CART: "RESET_CART",
 };
 
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     const currentState = { ...state };
+    let carts = JSON.parse(JSON.stringify(currentState.carts));
+    let cartAmount = currentState.cartAmount;
+    let payload = action.payload;
     switch (action.type) {
       case ACTION_TYPE.ADD_ITEM_TO_CART:
-        let carts = [...currentState.carts];
-        let cartAmount = currentState.cartAmount;
-
         let newItem = {
           ...action.payload,
           amount: 1,
@@ -48,15 +50,28 @@ const StateProvider = ({ children }) => {
         localStorage.setItem(CART_DATA_CACHE_KEY, JSON.stringify(carts));
         return { ...currentState, carts, cartAmount: cartAmount + 1 };
       case ACTION_TYPE.REMOVE_ITEM_TO_CART:
-        let index2 = currentState.carts.indexOf(action.payload);
+        let index2 = carts.findIndex(
+          (e) => e.product_id === payload.product_id
+        );
         if (index2 !== -1) {
-          currentState.carts.splice(index2, 1);
-          localStorage.setItem(
-            CART_DATA_CACHE_KEY,
-            JSON.stringify(currentState.carts)
-          );
+          if (payload.amount > 1) {
+            carts[index2].amount = payload.amount - 1;
+          } else {
+            carts.splice(index2, 1);
+          }
+          localStorage.setItem(CART_DATA_CACHE_KEY, JSON.stringify(carts));
         }
-        return currentState;
+        return {
+          ...currentState,
+          carts,
+          cartAmount: carts.reduce((prev, e) => prev + e.amount, 0),
+        };
+      case ACTION_TYPE.RESET_CART:
+        return {
+          ...currentState,
+          carts: [],
+          cartAmount: 0,
+        };
       default:
         return currentState;
     }

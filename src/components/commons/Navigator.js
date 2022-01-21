@@ -60,7 +60,7 @@ class Navigator extends Component {
               Tìm
             </Button>
           </Form>
-          <Button variant="link" className="btn-cart">
+          <Button variant="link" className="btn-cart" href="/cart">
             <CartSvg
               fill={"#ffffff00"}
               width={24}

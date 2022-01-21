@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { Component } from "react";
 import BottomNavigator from "src/components/commons/BottomNavigator";
+import Navigator from "src/components/commons/Navigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
 
 export default class StoreInfoPage extends Component {
   render() {
     return (
       <div className="store-infor">
+        <Navigator />
         <OrderGroupButton />
         {this.renderMainContent()}
         <BottomNavigator />

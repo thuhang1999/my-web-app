@@ -254,6 +254,8 @@ app.post("/api/orders/create", (req, res) => {
   let total_price = req.body["total_price"];
   let payment_method = req.body["payment_method"];
   let listData = req.body["list_orders"];
+  let phone_number = req.body["phone_number"] ?? "";
+  let address = req.body["address"] ?? "";
 
   // list order
   let listOrders = [];
@@ -267,7 +269,7 @@ app.post("/api/orders/create", (req, res) => {
    * create order;
    */
   let sql = `
-  INSERT INTO \`order\` (\`customer_id\`, \`total_price\`, \`payment_method\`) VALUES (${customer_id}, ${total_price}, ${payment_method});
+  INSERT INTO \`order\` (\`customer_id\`, \`total_price\`, \`payment_method\`, \`phone_number\`, \`address\`) VALUES (${customer_id}, ${total_price}, ${payment_method},"${phone_number}", "${address}");
   `;
   connection.query(sql, (err, results) => {
     if (err) {
