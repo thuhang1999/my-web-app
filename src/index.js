@@ -5,11 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StoryBook from "./pages/StoryBook/StoryBook";
+import StateProvider from "./stores/AppStore";
 
 let useStoryBook = false;
 ReactDOM.render(
   <React.StrictMode>
-    {!useStoryBook && <App />}
+    {!useStoryBook && (
+      <StateProvider>
+        <App />
+      </StateProvider>
+    )}
     {useStoryBook && <StoryBook />}
   </React.StrictMode>,
   document.getElementById("root")

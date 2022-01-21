@@ -1,0 +1,9 @@
+
+
+
+// create order and insert it's item;
+INSERT INTO `oder` VALUES ();
+SET @order_id = LAST_INSERT_ID();
+INSERT INTO `oder_detail`(`order_id`, `product_id`, `amount`, `price`) VALUES (@order_id,1,1,20000);
+
+//

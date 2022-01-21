@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import LargeProductItem from "src/components/items/products/LargeProductItem";
 import { CardGroup } from "react-bootstrap";
 import Api from "src/apis";
+import { withContext } from "src/utils/commons/withContext";
+import { ACTION_TYPE } from "src/stores/AppStore";
 
 let TEST_DATA = [
   {
@@ -67,7 +69,7 @@ let TEST_DATA = [
   },
 ];
 
-export default class HomePage extends Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -111,25 +113,30 @@ export default class HomePage extends Component {
 
   renderMainContent() {
     const { products, productTypes } = this.state;
+
     return (
       <div>
         {/* ------------- chọn loại món ăn------------- */}
         <div className="meal-type-gp-btn">
           {productTypes.map((e) => (
-            <>
+            <div key={e.product_type_id}>
               <Button
                 className="meal-type-btn"
                 onClick={this.onClickChangeType(e.product_type_id)}
               >
                 {e.product_type_name}
               </Button>{" "}
-            </>
+            </div>
           ))}
         </div>
         <div className="list-product-item">
           <CardGroup>
             {products.map((e) => (
-              <LargeProductItem data={e} />
+              <LargeProductItem
+                key={e.product_id}
+                data={e}
+                onOrderClick={this.onOrderClick}
+              />
             ))}
           </CardGroup>
         </div>
@@ -168,6 +175,11 @@ export default class HomePage extends Component {
     );
   }
 
+  onOrderClick = (item) => {
+    console.log("{RNLog} TCL --> this.props:", this.props);
+    this.props.dispatch({ type: ACTION_TYPE.ADD_ITEM_TO_CART, payload: item });
+  };
+
   onClickChangeType = (product_type_id) => () => {
     console.log("{RNLog} TCL --> product type id:", product_type_id);
   };
@@ -176,3 +188,5 @@ export default class HomePage extends Component {
     console.log("{RNLog} TCL --> this.props:", this.props);
   };
 }
+
+export default withContext(HomePage);

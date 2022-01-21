@@ -23,12 +23,17 @@ export default class LargeProductItem extends Component {
             <Card.Text className="lg-product-item-price">
               Giá: {Number(product.price).toLocaleString("vi")} đ
             </Card.Text>
-            <Button variant="success" onClick={this.props.onClick}>
-              Order
+            <Button variant="success" onClick={this.onOrderClick}>
+              Thêm vào giỏ hàng
             </Button>
           </Card.Body>
         </Card>
       </div>
     );
   }
+
+  onOrderClick = (event) => {
+    event.preventDefault();
+    this.props.onOrderClick && this.props.onOrderClick(this.props.data);
+  };
 }
