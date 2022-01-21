@@ -34,7 +34,7 @@ export default class ExtraLgProductItem extends Component {
                 Giá: {Number(product.price).toLocaleString("vi")} đ
               </Card.Text>
               <Button variant="success" onClick={this.props.onClick}>
-                Order
+                Thêm vào giỏ hàng
               </Button>
             </div>
           </Card.Body>

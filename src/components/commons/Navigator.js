@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import logo from "../../assets/icons/logo.png";
-import cart from "../../assets/icons/cart.png";
 import { ReactComponent as CartSvg } from "../../assets/icons/cart.svg";
 import { withRouter } from "src/utils/commons/withRouter";
+import { withContext } from "src/utils/commons/withContext";
 
 class Navigator extends Component {
   render() {
@@ -69,6 +67,7 @@ class Navigator extends Component {
               height={24}
               className="cart-svg"
             />
+            <div className="cart-number">{this.props.state.cartAmount}</div>
           </Button>
         </div>
       </Navbar>
@@ -84,4 +83,4 @@ class Navigator extends Component {
   };
 }
 
-export default withRouter(Navigator);
+export default withContext(withRouter(Navigator));

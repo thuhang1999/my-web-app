@@ -249,5 +249,79 @@ app.post("/api/user/login", (req, res) => {
   });
 });
 
+app.post("/api/orders/create", (req, res) => {
+  let customer_id = req.body["customer_id"];
+  let total_price = req.body["total_price"];
+  let payment_method = req.body["payment_method"];
+  let listData = req.body["list_orders"];
+
+  // list order
+  let listOrders = [];
+  if (Array.isArray(listData)) {
+    listData.forEach((e) => {
+      listOrders.push(JSON.parse(e));
+    });
+  }
+
+  /**
+   * create order;
+   */
+  let sql = `
+  INSERT INTO \`order\` (\`customer_id\`, \`total_price\`, \`payment_method\`) VALUES (${customer_id}, ${total_price}, ${payment_method});
+  `;
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.log("{RNLog} TCL --> err:", err);
+      res.json({ status: 400, success: false });
+    } else {
+      let orderId = results.insertId;
+      let new_sql =
+        "INSERT INTO `order_item` (`order_id`, `product_id`, `amount`, `session_id`) VALUES ";
+      let values = listOrders
+        .map((e) => {
+          if (e) {
+            let product_id = e.product_id;
+            let amount = e.amount;
+            let sessionId = e.session_id ?? "test-a8";
+
+            return `(${orderId}, ${product_id}, ${amount}, "${sessionId}")`;
+          }
+        })
+        .join(",");
+      new_sql += values;
+      // new_sql = `INSERT INTO \`order_item\` (\`order_id\`, \`product_id\`, \`amount\`, \`session_id\`) VALUES (21, 1, 1, "test-a8"); INSERT INTO \`order_item\` (\`order_id\`, \`product_id\`, \`amount\`, \`session_id\`) VALUES (21, 1, 1, "test-a8")`;
+      console.log("{RNLog} TCL --> new sql:", new_sql);
+      connection.query(new_sql, (err, results) => {
+        console.log(
+          `{RNLog} ~ file: server.js ~ line 295 ~ connection.query ~ results`,
+          results
+        );
+        if (err) {
+          console.log("{RNLog} TCL --> err:", err);
+          res.json({ status: 400, success: false });
+        } else {
+          res.json({ status: 200, success: true });
+        }
+      });
+    }
+  });
+});
+
+app.post("/api/test", (req, res) => {
+  let listData = req.body["list_orders"];
+  console.log(
+    `{RNLog} ~ file: server.js ~ line 275 ~ app.post ~ listData`,
+    listData
+  );
+  let listOrders = [];
+  if (Array.isArray(listData)) {
+    listData.forEach((e) => {
+      listOrders.push(JSON.parse(e));
+    });
+  }
+  console.log("{RNLog} TCL --> listOrder:", listOrders);
+  res.json({ data: [] });
+});
+
 app.listen(4000, () => console.log("App listening on port 4000"));
 // export default app;

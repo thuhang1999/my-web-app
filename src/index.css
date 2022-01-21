@@ -42,6 +42,21 @@ code {
 
 .btn-cart {
   margin-left: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+.cart-number {
+  position: absolute;
+  right: -5px;
+  top: 5px;
+  background: red;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  color: white;
+  font-size: 14px;
 }
 
 .cart-svg path {

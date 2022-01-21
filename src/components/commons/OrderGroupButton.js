@@ -5,25 +5,25 @@ import iconOrderShip from "../../assets/icons/hservice_icon2.png";
 export default class OrderGroupButton extends Component {
   render() {
     return (
-      <div class="order-group">
-        <div class="order-group-item">
-          <div class="order-group-item-img">
+      <div className="order-group">
+        <div className="order-group-item">
+          <div className="order-group-item-img">
             <a href="/order/book-table" target="">
-              <img src={iconOrderTable} alt="Đặt bàn" class="img" />
+              <img src={iconOrderTable} alt="Đặt bàn" className="img" />
             </a>
           </div>
-          <div class="order-group-item-title">
+          <div className="order-group-item-title">
             <a href="/order/book-table">Đặt bàn</a>
           </div>
         </div>
 
-        <div class="order-group-item">
-          <div class="order-group-item-img">
+        <div className="order-group-item">
+          <div className="order-group-item-img">
             <a href="/order/book-table" target="">
-              <img src={iconOrderShip} alt="Đặt bàn" class="img" />
+              <img src={iconOrderShip} alt="Đặt bàn" className="img" />
             </a>
           </div>
-          <div class="order-group-item-title">
+          <div className="order-group-item-title">
             <a href="/order/book-table">Đặt ship</a>
           </div>
         </div>

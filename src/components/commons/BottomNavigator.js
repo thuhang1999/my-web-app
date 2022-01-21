@@ -31,7 +31,7 @@ export default class BottomNavigator extends Component {
             <Card.Body>
               <Card.Title>Liên kết nhanh website</Card.Title>
               <Card.Body>
-                <ul class="bottom-nav-link-wrapper">
+                <ul className="bottom-nav-link-wrapper">
                   <a href="/" className="bottom-nav-link">
                     Trang chủ
                   </a>
