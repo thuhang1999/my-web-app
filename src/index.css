@@ -425,3 +425,15 @@ code {
   width: 60px;
   height: 50px;
 }
+.tb_cart .img{
+  width: 60px;
+  height: 50px;
+}
+.tb_cart ent
+  table, th, td{
+    border:1px solid black;
+}
+.tb_cart table{
+    border-collapse:collapse;
+}
+

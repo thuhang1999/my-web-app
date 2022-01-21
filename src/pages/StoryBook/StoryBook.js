@@ -17,6 +17,6 @@ import OrderManagementDetailPage from "../Admin/OrderManagement/OrderManagementD
 import BookOrderManagementDetailPage from "../Admin/OrderManagement/OrderManagementDetailPage/BookOrderManagementDetailPage";
 export default class StoryBook extends Component {
   render() {
-    return <BookOrderManagementDetailPage />;
+    return <SalesPage />;
   }
 }

@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StoryBook from "./pages/StoryBook/StoryBook";
 
-let useStoryBook = false;
+let useStoryBook = true;
 ReactDOM.render(
   <React.StrictMode>
     {!useStoryBook && <App />}
