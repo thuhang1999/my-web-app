@@ -9,7 +9,7 @@ const userService = require("./user.service");
 //routes
 router.post("/authenticate", authenticateSchema, authenticate);
 router.post("/register", registerSchema, register);
-router.get("/", authorize(), getAll);
+router.get("/", getAll);
 router.get("/current", authorize(), getCurrent);
 router.get("/:id", authorize(), getById);
 router.put("/:id", authorize(), updateSchema, update);
@@ -32,10 +32,9 @@ function authenticate(req, res, next) {
 
 function registerSchema(req, res, next) {
   const schema = Joi.object({
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
     username: Joi.string().required(),
     password: Joi.string().min(6).required(),
+    phone_number: Joi.string().required(),
   });
   validateRequest(req, next, schema);
 }
@@ -67,10 +66,10 @@ function getById(req, res, next) {
 
 function updateSchema(req, res, next) {
   const schema = Joi.object({
-    firstName: Joi.string().empty(""),
-    lastName: Joi.string().empty(""),
     username: Joi.string().empty(""),
     password: Joi.string().min(6).empty(""),
+    phone_number: Joi.string().empty(""),
+    address: Joi.string().empty(""),
   });
   validateRequest(req, next, schema);
 }

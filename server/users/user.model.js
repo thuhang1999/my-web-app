@@ -1,13 +1,16 @@
 const { DataTypes } = require("sequelize");
 
-export const model = (sequelize) => {
+module.exports = model;
+
+function model(sequelize) {
   const attributes = {
     username: { type: DataTypes.STRING, allowNull: false },
-    hash: { type: DataTypes.STRING, allowNull: false },
     phone_number: { type: DataTypes.STRING, allowNull: false },
     address: { type: DataTypes.STRING, allowNull: true },
     fraud: { type: DataTypes.BOOLEAN, allowNull: true },
     is_admin: { type: DataTypes.BOOLEAN, allowNull: true },
+    hash: { type: DataTypes.STRING, allowNull: false },
+    created_at: { type: DataTypes.DATE, allowNull: false },
   };
 
   const options = {
@@ -19,7 +22,13 @@ export const model = (sequelize) => {
       // include hash with this scope
       withHash: { attributes: {} },
     },
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // If don't want createdAt
+    createdAt: false,
+    // If don't want updatedAt
+    updatedAt: false,
   };
 
-  return sequelize.define("User", attributes, options);
-};
+  return sequelize.define("users", attributes, options);
+}
