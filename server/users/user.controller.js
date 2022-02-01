@@ -11,7 +11,7 @@ router.post("/authenticate", authenticateSchema, authenticate);
 router.post("/register", registerSchema, register);
 router.get("/", getAll);
 router.get("/current", authorize(), getCurrent);
-router.get("/:id", authorize(), getById);
+router.get("/:id", getById);
 router.put("/:id", authorize(), updateSchema, update);
 router.delete("/:id", authorize(), _delete);
 

@@ -475,6 +475,21 @@ td {
   width: 80%;
 }
 
+.tb_admin {
+  width: 90%;
+  margin: auto;
+}
+
+.tb_admin tr th {
+  border-bottom: 1px black solid;
+  border-right: 1px black solid;
+}
+
+.tb_admin tr td {
+  border-bottom: 1px black solid;
+  border-right: 1px black solid;
+}
+
 .cart-item-container {
   display: flex;
   justify-content: center;

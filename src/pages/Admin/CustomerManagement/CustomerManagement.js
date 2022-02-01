@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Button, Col, Dropdown, Form } from "react-bootstrap";
 import Api from "src/apis";
+import { withRouter } from "src/utils/commons/withRouter";
 
-export default class CustomerManagement extends Component {
+class CustomerManagement extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,15 +58,17 @@ export default class CustomerManagement extends Component {
           </>
         </div>
         <br></br>
-        <div className="tb_1">
-          <table className="tb_cart" border="1">
+        <div className="tb_admin">
+          <table className="tb_admin" border="1">
             <tr>
-              <th>Mã khách hàng</th>
-              <th>Tên khách hàng</th>
-              <th>Số điện thoại</th>
-              <th>Ngày thêm</th>
-              <th>Xem chi tiết</th>
-              <th colSpan={2}>Tác vụ</th>
+              <th class="text-center">Mã KH</th>
+              <th class="text-center">Tên khách hàng</th>
+              <th class="text-center">Số điện thoại</th>
+              <th class="text-center">Ngày thêm</th>
+              <th class="text-center">Xem chi tiết</th>
+              <th colSpan={3} class="text-center">
+                Tác vụ
+              </th>
             </tr>
 
             {this.state.users.map(this.renderUserItem)}
@@ -76,24 +79,37 @@ export default class CustomerManagement extends Component {
     );
   }
   renderUserItem = (item) => {
-    console.log("{RNLog} TCL --> item:", item);
     return (
-      <tr>
-        <td>{item.id}</td>
-        <td>{item.username}</td>
-        <td>{item.phone_number}</td>
-        <td>{item.created_at}</td>
+      <tr key={item.id}>
+        <td class="text-center">{item.id}</td>
+        <td class="text-center">{item.username}</td>
+        <td class="text-center">{item.phone_number}</td>
+        <td class="text-center">{item.created_at}</td>
 
-        <td>
+        <td class="text-center">
           <Button variant="link">Xem chi tiết</Button>
         </td>
-        <td>
-          <Button variant="link">Sửa</Button>
-        </td>
-        <td>
-          <Button variant="link">Xóa</Button>
+
+        <td class="text-center">
+          <Button variant="link" onClick={this.onClickEditUser(item)}>
+            Sửa
+          </Button>
+          <Button variant="link" onClick={this.onClickDeleteUser(item)}>
+            Xóa
+          </Button>
         </td>
       </tr>
     );
   };
+
+  onClickEditUser = (item) => () => {
+    console.log("{RNLog} TCL --> edit user", item);
+    this.props.navigate(`/admin/users/detail/${item.id}`);
+  };
+
+  onClickDeleteUser = (item) => () => {
+    console.log("{RNLog} TCL --> delete item:", item);
+  };
 }
+
+export default withRouter(CustomerManagement);

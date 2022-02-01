@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigator from "./components/commons/Navigator";
 import AdminPage from "./pages/Admin/AdminPage";
 import CustomerManagement from "./pages/Admin/CustomerManagement/CustomerManagement";
+import CustomerManagementDetail from "./pages/Admin/CustomerManagement/CustomerManagementDetail";
 import CartPage from "./pages/Cart/CartPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 import ContactPage from "./pages/Contact/ContactPage";
@@ -35,6 +36,10 @@ function App() {
         <Route path="checkout" element={<CheckoutPage />} />
         <Route path="admin" element={<AdminPage />} />
         <Route path="admin/users" element={<CustomerManagement />} />
+        <Route
+          path="admin/users/detail/:id"
+          element={<CustomerManagementDetail />}
+        />
       </Routes>
     </BrowserRouter>
   );
