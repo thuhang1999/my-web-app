@@ -93,7 +93,6 @@ function getProductByType(req, res, next) {
 }
 
 function searchProductByName(req, res, next) {
-  console.log("{RNLog} TCL --> call:", req);
   productService
     .search(req.query.name, req.query.page, req.query.per_page)
     .then((products) => {

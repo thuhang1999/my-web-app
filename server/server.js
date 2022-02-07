@@ -15,6 +15,7 @@ app.use(upload.array());
 // api routes
 app.use("/api/users", require("./users/user.controller"));
 app.use("/api/products", require("./products/product.controller"));
+app.use("/api/orders", require("./orders/order.controller"));
 
 //global error handler;
 app.use(errorHandler);

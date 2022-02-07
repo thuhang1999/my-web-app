@@ -28,6 +28,9 @@ async function initialize() {
   // init models and add them to the exported db object
   db.Product = require("../products/product.model")(sequelize);
 
+  // init models and add them to the exported db object
+  db.Order = require("../orders/order.model")(sequelize);
+
   // sync all models with database
   await sequelize.sync();
 }
