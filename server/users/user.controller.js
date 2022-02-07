@@ -12,8 +12,10 @@ router.post("/register", registerSchema, register);
 router.get("/", getAll);
 router.get("/current", authorize(), getCurrent);
 router.get("/:id", getById);
-router.put("/:id", authorize(), updateSchema, update);
-router.delete("/:id", authorize(), _delete);
+//TODO: add admin authorization
+router.put("/:id", updateSchema, update);
+// TODO: add admin authorization
+router.delete("/:id", _delete);
 
 function authenticateSchema(req, res, next) {
   const schema = Joi.object({
@@ -98,6 +100,8 @@ function updateSchema(req, res, next) {
     password: Joi.string().min(6).empty(""),
     phone_number: Joi.string().empty(""),
     address: Joi.string().empty(""),
+    is_admin: Joi.boolean().empty(false),
+    fraud: Joi.boolean().empty(false),
   });
   validateRequest(req, next, schema);
 }
@@ -117,7 +121,7 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
   userService
-    .delete(req, req.params.id)
+    .delete(req.params.id)
     .then(() =>
       res.json({
         data: "User deleted successfully",

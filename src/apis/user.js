@@ -52,12 +52,11 @@ export const getUserById = (id) => {
   });
 };
 
-export const updateUserById = (updateObject, id) => {
+export const updateUserById = (id, updateObject) => {
   let formData = new FormData();
-  formData.append("username", updateObject.username);
-  formData.append("password", updateObject.password);
-  formData.append("phone_number", updateObject.phone_number);
-  formData.append("address", updateObject.address);
+  Object.keys(updateObject).forEach((key) => {
+    formData.append(key, updateObject[key]);
+  });
 
   return axios({
     url: `${BASE_URL}/api/users/${id}`,

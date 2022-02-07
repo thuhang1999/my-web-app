@@ -53,12 +53,13 @@ async function update(id, params) {
   const user = await getUser(id);
 
   // validate
-  const usernameChanged = params.username && user.username !== params.username;
+  const phoneNumberChange =
+    params.phone_number && user.phone_number !== params.phone_number;
   if (
-    usernameChanged &&
-    (await db.User.findOne({ where: { username: params.username } }))
+    phoneNumberChange &&
+    (await db.User.findOne({ where: { username: params.phone_number } }))
   ) {
-    throw 'Username "' + params.username + '" is already taken';
+    throw 'Username "' + params.phone_number + '" is already taken';
   }
 
   // hash password if it was entered
