@@ -5,16 +5,18 @@ const adminAuthorize = require("_middleware/admin-authorize");
 const productService = require("./product.service");
 
 //routes
+router.get("/by_type", getProductByType);
+router.get("/search", searchProductByName);
 router.get("/", getAll);
 router.get("/:id", getProductById);
-router.get("/by_type", getProductByType);
+
 router.post("/create", adminAuthorize(), createProduct);
 router.put("/:id", adminAuthorize(), updateProductById);
 router.delete("/:id", adminAuthorize(), _delete);
 
 function getAll(req, res, next) {
   productService
-    .getAll(req.params.page, req.params.per_page)
+    .getAll(req.query.page, req.query.per_page)
     .then((products) => {
       res.json({
         status: 200,
@@ -79,7 +81,21 @@ function _delete(req, res, next) {
 
 function getProductByType(req, res, next) {
   productService
-    .getProductByType(req.params.type, req.params.page, req.params.per_page)
+    .getProductByType(req.query.type, req.query.page, req.query.per_page)
+    .then((products) => {
+      res.json({
+        status: 200,
+        data: products,
+        success: true,
+      });
+    })
+    .catch(next);
+}
+
+function searchProductByName(req, res, next) {
+  console.log("{RNLog} TCL --> call:", req);
+  productService
+    .search(req.query.name, req.query.page, req.query.per_page)
     .then((products) => {
       res.json({
         status: 200,

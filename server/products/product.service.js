@@ -1,5 +1,6 @@
 const config = require("config.json");
 const db = require("_helpers/db");
+const { Op } = require("sequelize");
 
 module.exports = {
   getAll,
@@ -8,6 +9,7 @@ module.exports = {
   update,
   delete: _delete,
   getProductByType,
+  search,
 };
 
 async function getAll(page = 1, per_page = 10) {
@@ -67,6 +69,17 @@ async function _delete(id) {
 async function getProductByType(type, page = 1, per_page = 10) {
   const product = await db.Product.findAll({
     where: { product_type: type },
+    offset: (page - 1) * per_page,
+    limit: per_page * page,
+  });
+  // eslint-disable-next-line no-throw-literal
+  if (!product) throw "Product not found";
+  return product;
+}
+
+async function search(name, page = 1, per_page = 10) {
+  const product = await db.Product.findAll({
+    where: { product_name: { [Op.like]: `%${name}%` } },
     offset: (page - 1) * per_page,
     limit: per_page * page,
   });
