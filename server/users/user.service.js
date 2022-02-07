@@ -13,8 +13,10 @@ module.exports = {
   delete: _delete,
 };
 
-async function authenticate({ username, password }) {
-  const user = await db.User.scope("withHash").findOne({ where: { username } });
+async function authenticate({ phone_number, password }) {
+  const user = await db.User.scope("withHash").findOne({
+    where: { phone_number },
+  });
 
   if (!user || !(await bcrypt.compare(password, user.hash)))
     throw "Username or password is incorrect";
@@ -34,8 +36,8 @@ async function getById(id) {
 
 async function create(params) {
   // validate
-  if (await db.User.findOne({ where: { username: params.username } })) {
-    throw 'Username "' + params.username + '" is already taken';
+  if (await db.User.findOne({ where: { phone_number: params.phone_number } })) {
+    throw "PhoneNumber " + params.phone_number + " is already taken";
   }
 
   // hash password

@@ -1,14 +1,17 @@
 import React, { createContext, useReducer } from "react";
 const CART_DATA_CACHE_KEY = "cart_data_cache_key";
+const USER_DATA_CACHE_KEY = "user_data_cache_key";
 // localStorage.setItem(CART_DATA_CACHE_KEY, null);
 
 let cartLocalData = JSON.parse(localStorage.getItem(CART_DATA_CACHE_KEY)) ?? [];
+let userLocalData = JSON.parse(localStorage.getItem(USER_DATA_CACHE_KEY));
 console.log(
-  `{RNLog} ~ file: AppStore.js ~ line 6 ~ cartLocalData`,
-  cartLocalData
+  `{RNLog} ~ file: AppStore.js ~ line 8 ~ userLocalData`,
+  userLocalData
 );
+
 const initialState = {
-  user: null,
+  user: userLocalData,
   carts: cartLocalData,
   cartAmount: cartLocalData.reduce((prev, e) => prev + e.amount, 0),
 };
@@ -22,6 +25,8 @@ export const ACTION_TYPE = {
   REMOVE_ITEM_TO_CART: "REMOVE_ITEM_TO_CART",
   FETCH_LOCAL_CART: "FETCH_LOCAL_CART",
   RESET_CART: "RESET_CART",
+  SET_USER: "SET_USER",
+  REMOVE_USER: "REMOVE_USER",
 };
 
 const StateProvider = ({ children }) => {
@@ -71,6 +76,18 @@ const StateProvider = ({ children }) => {
           ...currentState,
           carts: [],
           cartAmount: 0,
+        };
+      case ACTION_TYPE.SET_USER:
+        localStorage.setItem(USER_DATA_CACHE_KEY, JSON.stringify(payload));
+        return {
+          ...currentState,
+          user: payload,
+        };
+      case ACTION_TYPE.REMOVE_USER:
+        localStorage.setItem(USER_DATA_CACHE_KEY, null);
+        return {
+          ...currentState,
+          user: null,
         };
       default:
         return currentState;

@@ -17,7 +17,7 @@ router.delete("/:id", authorize(), _delete);
 
 function authenticateSchema(req, res, next) {
   const schema = Joi.object({
-    username: Joi.string().required(),
+    phone_number: Joi.string().required(),
     password: Joi.string().required(),
   });
   validateRequest(req, next, schema);
@@ -26,7 +26,13 @@ function authenticateSchema(req, res, next) {
 function authenticate(req, res, next) {
   userService
     .authenticate(req.body)
-    .then((user) => res.json(user))
+    .then((user) =>
+      res.json({
+        data: user,
+        status: 200,
+        success: true,
+      })
+    )
     .catch(next);
 }
 
@@ -42,25 +48,47 @@ function registerSchema(req, res, next) {
 function register(req, res, next) {
   userService
     .create(req.body)
-    .then(() => res.json({ message: "Registration successful" }))
+    .then(() =>
+      res.json({
+        data: "Registration successful",
+        status: 200,
+        success: true,
+      })
+    )
     .catch(next);
 }
 
 function getAll(req, res, next) {
   userService
     .getAll()
-    .then((users) => res.json(users))
+    .then((users) =>
+      res.json({
+        status: 200,
+        data: users,
+        success: true,
+      })
+    )
     .catch(next);
 }
 
 function getCurrent(req, res, next) {
-  res.json(req.user);
+  res.json({
+    data: req.user,
+    status: 200,
+    success: true,
+  });
 }
 
 function getById(req, res, next) {
   userService
     .getById(req.params.id)
-    .then((user) => res.json(user))
+    .then((user) =>
+      res.json({
+        data: user,
+        status: 200,
+        success: true,
+      })
+    )
     .catch(next);
 }
 
@@ -77,14 +105,26 @@ function updateSchema(req, res, next) {
 function update(req, res, next) {
   userService
     .update(req.params.id, req.body)
-    .then((user) => res.json(user))
+    .then((user) =>
+      res.json({
+        data: user,
+        status: 200,
+        success: true,
+      })
+    )
     .catch(next);
 }
 
 function _delete(req, res, next) {
   userService
     .delete(req, req.params.id)
-    .then(() => res.json({ message: "User deleted successfully" }))
+    .then(() =>
+      res.json({
+        data: "User deleted successfully",
+        success: true,
+        status: 200,
+      })
+    )
     .catch(next);
 }
 

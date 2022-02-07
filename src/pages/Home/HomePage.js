@@ -12,62 +12,62 @@ import Api from "src/apis";
 import { withContext } from "src/utils/commons/withContext";
 import { ACTION_TYPE } from "src/stores/AppStore";
 
-let TEST_DATA = [
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-  {
-    img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
-    price: 380000,
-    desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
-    title: "LẨU CÁ KÈO LÁ GIANG 16",
-  },
-];
+// let TEST_DATA = [
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+//   {
+//     img: "https://product.hstatic.net/1000093072/product/artboard_16ads_pn2332_9b50511f4c6f406b9db85b5d56b3b81b_medium.jpg",
+//     price: 380000,
+//     desc: "(1) Cá kèo đang bơi: 16 con(2) Nước dùng: ...",
+//     title: "LẨU CÁ KÈO LÁ GIANG 16",
+//   },
+// ];
 
 class HomePage extends Component {
   constructor(props) {
@@ -93,6 +93,18 @@ class HomePage extends Component {
       if (Array.isArray(productTypes)) {
         this.setState({ productTypes: productTypes.slice(0, 6) });
       }
+    });
+    Api.getCurrentUser(this.props.state.user?.token).then((res) => {
+      console.log(
+        `{RNLog} ~ file: HomePage.js ~ line 98 ~ HomePage ~ Api.getCurrentUser ~ res`,
+        res
+      );
+      // if (res.data?.data) {
+      //   this.props.dispatch({
+      //     type: ACTION_TYPE.SET_USER,
+      //     payload: res?.data.data,
+      //   });
+      // }
     });
   }
 

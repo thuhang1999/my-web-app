@@ -15,14 +15,14 @@ class CustomerManagementDetail extends Component {
   componentDidMount() {
     let userId = this.props.eParams?.id;
     Api.getUserById(userId).then((res) => {
-      this.setState({ user: res.data });
+      this.setState({ user: res.data?.data });
     });
   }
 
   render() {
     const { user } = this.state;
     return (
-      <div>
+      <div className="manager-detail-page">
         <h1>Chi tiết khách hàng</h1>
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -44,35 +44,29 @@ class CustomerManagementDetail extends Component {
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Địa chỉ</Form.Label>
             <Form.Control
-              disabled
+              value={user?.address}
               type="text"
-              placeholder="Nhập số điện thoại của bạn"
+              placeholder="Nhập địa chỉ của bạn"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Địa chỉ hình ảnh sản phẩm</Form.Label>
-            <Form.Control value="Hằng" disabled type="text" placeholder="" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Hình ảnh sản phẩm</Form.Label>
-            <br></br>
-            <img
-              className="img"
-              src="https://hoaninh.danang.gov.vn/wp-content/uploads/2019/01/nha-hang-8.jpg"
-            ></img>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Gian lận</Form.Label>
+            <Form.Check type="checkbox" checked={user?.fraud} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Mô tả sản phẩm</Form.Label>
-            <Form.Control disabled as="textarea" rows={3} />
+            <Form.Label>Cấp quyền Admin</Form.Label>
+            <Form.Check type="checkbox" checked={user?.is_admin} />
           </Form.Group>
         </Form>
-        <Button variant="primary" type="submit">
-          Sửa
-        </Button>
-        <Button variant="primary" type="submit">
-          Xóa
-        </Button>
-        <Button variant="link">Thoát</Button>
+        <div>
+          <Button variant="primary" type="submit">
+            Sửa
+          </Button>{" "}
+          <Button variant="primary" type="submit">
+            Xóa
+          </Button>{" "}
+          <Button variant="link">Thoát</Button>
+        </div>
         <br></br>
       </div>
     );

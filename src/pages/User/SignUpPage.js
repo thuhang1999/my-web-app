@@ -94,12 +94,23 @@ class SignUpPage extends Component {
 
   onClickSignUp = (event) => {
     event.preventDefault();
-    console.log("{RNLog} TCL --> this:", this);
-    Api.createUserAccount(this.userName, this.phone, this.password).then(
-      (res) => {
-        console.log("{RNLog} TCL --> res:", res);
-      }
-    );
+    if (this.password === this.password2) {
+      Api.register(this.userName, this.phone, this.password)
+        .then((res) => {
+          console.log("{RNLog} TCL --> res:", res);
+          if (res.data.status === 200) {
+            alert("Đăng nhập thành công");
+            this.props.navigate("/user/login");
+          } else {
+            alert(res.data?.message);
+          }
+        })
+        .catch((err) => {
+          console.log("{RNLog} TCL --> err:", err);
+        });
+    } else {
+      alert("Mật khẩu bạn nhập không khớp");
+    }
   };
 
   onClickLogin = () => {

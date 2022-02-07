@@ -1,9 +1,9 @@
 import axios from "axios";
 import { BASE_URL } from "./Api";
 
-export const login = (username, password) => {
+export const login = (phone_number, password) => {
   let formData = new FormData();
-  formData.append("username", username);
+  formData.append("phone_number", phone_number);
   formData.append("password", password);
 
   return axios({
@@ -35,10 +35,13 @@ export const getAllUser = () => {
   });
 };
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (token) => {
   return axios({
     url: `${BASE_URL}/api/users/current`,
     method: "get",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
   });
 };
 

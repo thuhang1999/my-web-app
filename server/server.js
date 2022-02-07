@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 const bodyParser = require("body-parser");
-const errorHandler = require("_middleware/error-handler");
+const { errorHandler } = require("_middleware/error-handler");
 const upload = multer();
 const app = express();
 
@@ -14,6 +14,7 @@ app.use(upload.array());
 
 // api routes
 app.use("/api/users", require("./users/user.controller"));
+app.use("/api/products", require("./products/product.controller"));
 
 //global error handler;
 app.use(errorHandler);

@@ -13,7 +13,11 @@ class CustomerManagement extends Component {
 
   componentDidMount() {
     Api.getAllUser().then((res) => {
-      this.setState({ users: res.data });
+      console.log(
+        `{RNLog} ~ file: CustomerManagement.js ~ line 16 ~ CustomerManagement ~ Api.getAllUser ~ res`,
+        res
+      );
+      this.setState({ users: res.data?.data });
     });
   }
 

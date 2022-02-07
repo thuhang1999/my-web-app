@@ -10,7 +10,7 @@ function model(sequelize) {
     fraud: { type: DataTypes.BOOLEAN, allowNull: true },
     is_admin: { type: DataTypes.BOOLEAN, allowNull: true },
     hash: { type: DataTypes.STRING, allowNull: false },
-    created_at: { type: DataTypes.DATE, allowNull: false },
+    created_at: { type: DataTypes.DATE, allowNull: true },
   };
 
   const options = {

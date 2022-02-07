@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
+import Api from "src/apis";
 import BottomNavigator from "src/components/commons/BottomNavigator";
 import Navigator from "src/components/commons/Navigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
+import { ACTION_TYPE } from "src/stores/AppStore";
+import { withContext } from "src/utils/commons/withContext";
+import { withRouter } from "src/utils/commons/withRouter";
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   render() {
     return (
       <div className="login">
@@ -24,14 +28,24 @@ export default class LoginPage extends Component {
       <>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="text" placeholder="Nhập số điện thoại" />
+            <Form.Control
+              type="text"
+              placeholder="Nhập số điện thoại"
+              onChange={this.onChangePhone}
+            />
             <Form.Text className="text-muted"></Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Nhập mật khẩu" />
+            <Form.Control
+              type="password"
+              placeholder="Nhập mật khẩu"
+              onChange={this.onChangePassword}
+            />
           </Form.Group>
         </Form>
-        <Button className="btn">Đăng nhập</Button>
+        <Button className="btn" onClick={this.onSignIn}>
+          Đăng nhập
+        </Button>
 
         <a href="/user/sign-up">Đăng ký</a>
 
@@ -40,4 +54,31 @@ export default class LoginPage extends Component {
       </>
     );
   }
+
+  onChangePhone = (event) => {
+    this.phone = event.target.value;
+  };
+
+  onChangePassword = (event) => {
+    this.password = event.target.value;
+  };
+
+  onSignIn = (event) => {
+    event.preventDefault();
+    Api.login(this.phone, this.password).then((res) => {
+      if (res.data?.status === 200) {
+        this.props.dispatch({
+          type: ACTION_TYPE.SET_USER,
+          payload: res.data?.data,
+        });
+        alert("Đăng nhập thành công");
+
+        this.props.navigate("/");
+      } else {
+        alert(res.data?.message);
+      }
+    });
+  };
 }
+
+export default withContext(withRouter(LoginPage));
