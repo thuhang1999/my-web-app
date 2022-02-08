@@ -9,6 +9,7 @@ function model(sequelize) {
     price: { type: DataTypes.INTEGER, allowNull: true },
     description: { type: DataTypes.STRING, allowNull: true },
     product_type_id: { type: DataTypes.STRING, allowNull: true },
+    image: { type: DataTypes.STRING, allowNull: true },
     created_at: { type: DataTypes.DATE, allowNull: true },
   };
 

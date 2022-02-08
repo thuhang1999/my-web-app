@@ -6,7 +6,7 @@ import {
   CardGroup,
   Pagination,
 } from "react-bootstrap";
-import Api from "src/apis";
+import Api, { ApiProduct } from "src/apis";
 import BottomNavigator from "src/components/commons/BottomNavigator";
 import Navigator from "src/components/commons/Navigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
@@ -32,9 +32,7 @@ class MenuPage extends Component {
         }
       });
     } else {
-      Api.fetchProducts({
-        per_page: 16,
-      }).then((res) => {
+      ApiProduct.getAllProduct(1, 16).then((res) => {
         let products = res.data?.data;
         if (Array.isArray(products)) {
           this.setState({ products });

@@ -10,6 +10,7 @@ import logo from "../../assets/icons/logo.png";
 import { ReactComponent as CartSvg } from "../../assets/icons/cart.svg";
 import { withRouter } from "src/utils/commons/withRouter";
 import { withContext } from "src/utils/commons/withContext";
+import { ACTION_TYPE } from "src/stores/AppStore";
 
 class Navigator extends Component {
   render() {
@@ -40,10 +41,22 @@ class Navigator extends Component {
               Người dùng
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item href="/user/login">Đăng nhập</Dropdown.Item>
-              <Dropdown.Item href="/user/sign-up">Đăng ký</Dropdown.Item>
-            </Dropdown.Menu>
+            {!this.props.state.user && (
+              <Dropdown.Menu>
+                <Dropdown.Item href="/user/login">Đăng nhập</Dropdown.Item>
+                <Dropdown.Item href="/user/sign-up">Đăng ký</Dropdown.Item>
+              </Dropdown.Menu>
+            )}
+            {!!this.props.state.user && (
+              <Dropdown.Menu>
+                <Dropdown.Item href="/user/detail">
+                  Xin chào, {this.props.state.user.username}
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.onClickSignOut}>
+                  Đăng xuất
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            )}
           </Dropdown>
         </div>
 
@@ -73,6 +86,13 @@ class Navigator extends Component {
       </Navbar>
     );
   }
+
+  onClickSignOut = () => {
+    this.props.dispatch({
+      type: ACTION_TYPE.REMOVE_USER,
+    });
+    alert("Đăng xuất thành công");
+  };
 
   onChangeText = (event) => {
     this.text = event.target.value;

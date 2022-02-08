@@ -8,7 +8,7 @@ import BottomNavigator from "src/components/commons/BottomNavigator";
 import Button from "react-bootstrap/Button";
 import LargeProductItem from "src/components/items/products/LargeProductItem";
 import { CardGroup } from "react-bootstrap";
-import Api from "src/apis";
+import Api, { ApiProduct } from "src/apis";
 import { withContext } from "src/utils/commons/withContext";
 import { ACTION_TYPE } from "src/stores/AppStore";
 
@@ -79,12 +79,11 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    Api.fetchProducts({
-      per_page: 15,
-    }).then((res) => {
-      let products = res.data?.data;
-      if (Array.isArray(products)) {
-        this.setState({ products });
+    ApiProduct.getAllProduct().then((res) => {
+      if (Array.isArray(res.data.data)) {
+        this.setState({
+          products: res.data.data,
+        });
       }
     });
 
