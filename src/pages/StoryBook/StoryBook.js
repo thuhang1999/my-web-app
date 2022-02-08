@@ -12,7 +12,7 @@ import AdminPage from "../Admin/AdminPage";
 import OrderManagement from "../Admin/OrderManagement/OrderManagement";
 import ContactManagement from "../Admin/ContactManagement/ContactManagement";
 import CustomerManagement from "../Admin/CustomerManagement/CustomerManagement";
-import AdProductDetailPage from "../Admin/ProductManagement/ProductDetailPage/ProductDetailPage";
+import AdProductDetailPage from "../Admin/ProductManagement/ProductDetailPage/ProductManagerDetailPage";
 import OrderManagementDetailPage from "../Admin/OrderManagement/OrderManagementDetailPage/OrderManagementDetailPage";
 import BookOrderManagementDetailPage from "../Admin/OrderManagement/OrderManagementDetailPage/BookOrderManagementDetailPage";
 export default class StoryBook extends Component {

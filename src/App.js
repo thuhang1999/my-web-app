@@ -3,6 +3,8 @@ import Navigator from "./components/commons/Navigator";
 import AdminPage from "./pages/Admin/AdminPage";
 import CustomerManagement from "./pages/Admin/CustomerManagement/CustomerManagement";
 import CustomerManagementDetail from "./pages/Admin/CustomerManagement/CustomerManagementDetail";
+import ProductManagerDetailPage from "./pages/Admin/ProductManagement/ProductDetailPage/ProductManagerDetailPage";
+import ProductManagement from "./pages/Admin/ProductManagement/ProductManagement";
 import CartPage from "./pages/Cart/CartPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 import ContactPage from "./pages/Contact/ContactPage";
@@ -39,6 +41,11 @@ function App() {
         <Route
           path="admin/users/detail/:id"
           element={<CustomerManagementDetail />}
+        />
+        <Route path="admin/products" element={<ProductManagement />} />
+        <Route
+          path="admin/products/detail/:id"
+          element={<ProductManagerDetailPage />}
         />
       </Routes>
     </BrowserRouter>
