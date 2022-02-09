@@ -3,7 +3,11 @@ module.exports = model;
 
 function model(sequelize) {
   const attributes = {
-    order_id: { type: DataTypes.INTEGER, primaryKey: true },
+    order_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     customer_id: { type: DataTypes.INTEGER, allowNull: true },
     phone_number: { type: DataTypes.STRING, allowNull: false },
     address: { type: DataTypes.STRING, allowNull: false },
@@ -22,7 +26,8 @@ function model(sequelize) {
     // If don't want updatedAt
     updatedAt: false,
     id: false,
+    freezeTableName: true,
   };
 
-  return sequelize.define("orders", attributes, options);
+  return sequelize.define("order", attributes, options);
 }

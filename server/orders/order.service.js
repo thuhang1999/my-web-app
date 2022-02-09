@@ -29,7 +29,7 @@ async function getOrder(id) {
 
 async function create(params) {
   // save user
-  await db.Order.create(params);
+  return await db.Order.create(params);
 }
 
 async function update(id, params) {

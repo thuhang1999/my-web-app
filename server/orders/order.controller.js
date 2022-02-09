@@ -3,6 +3,7 @@ const router = express.Router();
 const validateRequest = require("_middleware/validate-request");
 const adminAuthorize = require("_middleware/admin-authorize");
 const orderService = require("./order.service");
+const orderItemService = require("../order-items/order-item.service");
 
 //routes
 router.get("/", getAll);
@@ -32,11 +33,25 @@ function getOrderById(req, res, next) {
 function createOrder(req, res, next) {
   orderService
     .create(req.body)
-    .then(() => {
-      res.json({
-        data: "Order created successfully",
-        status: 200,
-        success: true,
+    .then((order) => {
+      let orderItems = req.body["list_orders"];
+      console.log(
+        `{RNLog} ~ file: order.controller.js ~ line 38 ~ .then ~ orderItems`,
+        orderItems
+      );
+      let orderItemsWithOrderId = [];
+      if (Array.isArray(orderItems)) {
+        orderItemsWithOrderId = orderItems.map((e) => ({
+          ...JSON.parse(e),
+          order_id: order.dataValues.order_id,
+        }));
+      }
+      orderItemService.bulkCreate(orderItemsWithOrderId).then(() => {
+        res.json({
+          data: "Order created successfully",
+          status: 200,
+          success: true,
+        });
       });
     })
     .catch(next);

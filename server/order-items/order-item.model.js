@@ -7,7 +7,6 @@ function model(sequelize) {
     customer_id: { type: DataTypes.INTEGER, allowNull: true },
     product_id: { type: DataTypes.INTEGER, allowNull: false },
     amount: { type: DataTypes.STRING, allowNull: false },
-    session_id: { type: DataTypes.INTEGER, allowNull: true },
   };
 
   const options = {
@@ -17,6 +16,7 @@ function model(sequelize) {
     createdAt: false,
     // If don't want updatedAt
     updatedAt: false,
+    freezeTableName: true,
   };
 
   return sequelize.define("order_item", attributes, options);

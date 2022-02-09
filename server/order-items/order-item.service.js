@@ -4,6 +4,7 @@ module.exports = {
   get,
   getAll,
   create,
+  bulkCreate,
   update,
   delete: _delete,
 };
@@ -22,6 +23,10 @@ async function getAll(orderId) {
 
 async function create(orderItem) {
   return await db.OrderItem.create(orderItem);
+}
+
+async function bulkCreate(orderItems) {
+  return await db.OrderItem.bulkCreate(orderItems);
 }
 
 async function getOrderItem(orderItemId) {
