@@ -157,7 +157,7 @@ class ProductManagerDetailPage extends Component {
   };
 
   onClickDeleteProduct = () => {
-    if (confirm("Bạn có chắc chắn muốn xoá tài khoản này không?")) {
+    if (confirm("Bạn có chắc chắn muốn xoá sản phẩm này không?")) {
       ApiProduct.deleteProductById(this.state.product?.product_id).then(
         (res) => {
           if (res.data.success) {

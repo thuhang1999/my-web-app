@@ -13,9 +13,10 @@ function authorize() {
     async (req, res, next) => {
       // get user with id from token 'sub' (subject) property
       const user = await db.User.findByPk(req.user.sub);
+      console.log(`{RNLog} ~ file: admin-authorize.js ~ line 16 ~ user`, user);
 
       // check user still exists
-      if (!user || (user && user.is_admin))
+      if (!user || (user && !user.is_admin))
         return res.status(401).json({ message: "NOT an admin" });
       req.is_admin = true;
       next();
