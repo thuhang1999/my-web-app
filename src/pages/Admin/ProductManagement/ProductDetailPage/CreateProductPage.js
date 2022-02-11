@@ -16,6 +16,7 @@ export default class CreateProductPage extends Component {
                         <Form.Label>Giá bán</Form.Label>
                         <Form.Control type="number" placeholder="Nhập giá bán" />
                     </Form.Group>
+
                     <Form.Group controlId="formFile" className="mb-3">
                         <Form.Label>Tải lên hình ảnh sản phẩm</Form.Label>
                         <Form.Control type="file" />

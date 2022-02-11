@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap'
 export default class CreateContactPage extends Component {
     render() {
         return (
-            <div>CreateContactPage
+            <div>
                 <h1>Thêm liên hệ</h1>
                 <div>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
