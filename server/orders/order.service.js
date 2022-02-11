@@ -1,4 +1,5 @@
 const config = require("config.json");
+const orderItemService = require("../order-items/order-item.service");
 const db = require("_helpers/db");
 
 module.exports = {
@@ -9,10 +10,13 @@ module.exports = {
   delete: _delete,
 };
 
-async function getAll(page = 1, per_page = 10) {
+async function getAll(params, page = 1, per_page = 10) {
   return await db.Order.findAll({
     offset: (page - 1) * per_page,
     limit: per_page * page,
+    where: {
+      ...params,
+    },
     include: [
       {
         model: db.User,
@@ -77,13 +81,14 @@ async function create(params) {
 }
 
 async function update(id, params) {
-  const product = await getOrder(id);
+  const order = await getOrder(id);
 
-  await product.update(params);
-  return product;
+  await order.update(params);
+  return order;
 }
 
 async function _delete(id) {
-  const product = await getOrder(id);
-  await product.destroy();
+  const order = await getOrder(id);
+  await orderItemService.deleteAllByOrderId(id);
+  await order.destroy();
 }
