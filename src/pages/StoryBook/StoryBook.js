@@ -19,10 +19,13 @@ import CreateOrderPage from "../Admin/OrderManagement/OrderManagementDetailPage/
 import CreateCustomerPage from "../Admin/CustomerManagement/CreateCustomerPage";
 import CreateBookOrderPage from "../Admin/OrderManagement/OrderManagementDetailPage/CreateBookOrderPage";
 import CheckoutPage from "../Checkout/CheckoutPage";
+import CreateProductPage from "../Admin/ProductManagement/ProductDetailPage/CreateProductPage";
+import CreateContactPage from "../Admin/ContactManagement/ContactManagementDetailPage/CreateContactPage";
+
 
 
 export default class StoryBook extends Component {
   render() {
-    return <CreateBookOrderPage />;
+    return <CheckoutPage />;
   }
 }

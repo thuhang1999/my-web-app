@@ -69,13 +69,26 @@ class CheckoutPage extends Component {
         <Form>
           {["radio"].map((type) => (
             <div key={`inline-${type}`} className="mb-3">
+              <Form>
+                {['radio'].map((type) => (
+                  <div key={type} className="mb-3">
+                    <Form.Check type={type} id={`check-api-${type}`}>
+                      <Form.Check.Input type={type} isValid />
+                      <Form.Check.Label>{`Chuyển khoản qua ngân hàng ${type}`}</Form.Check.Label>
+                      <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
+                    </Form.Check>
+                  </div>
+                ))}
+              </Form>
+              <Form.Check.Label>{`Chuyển khoản qua ngân hàng ${type}`}</Form.Check.Label>
+              <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
               <Form.Check
                 inline
                 label="Chuyển khoản qua ngân hàng"
                 name="group1"
                 type={type}
                 id={`inline-${type}-1`}>
-                <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
+
               </Form.Check>
 
               <Form.Check
