@@ -10,10 +10,13 @@ module.exports = {
   delete: _delete,
 };
 
-async function getAll(page = 1, per_page = 10) {
+async function getAll(params, page = 1, per_page = 10) {
   return await db.Order.findAll({
     offset: (page - 1) * per_page,
     limit: per_page * page,
+    where: {
+      ...params,
+    },
     include: [
       {
         model: db.User,

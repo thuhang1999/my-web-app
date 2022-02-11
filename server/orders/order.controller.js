@@ -15,8 +15,9 @@ router.put("/:id", updateOrderById);
 router.delete("/:id", _delete);
 
 function getAll(req, res, next) {
+  const { page, per_page, ...otherParams } = req.query;
   orderService
-    .getAll(req.query.page, req.query.per_page)
+    .getAll(otherParams, page, per_page)
     .then((orders) => {
       res.json({ status: 200, data: orders, success: true });
     })
