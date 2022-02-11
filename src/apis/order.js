@@ -33,3 +33,28 @@ export const deleteOrderById = (id) => {
     method: "delete",
   });
 };
+
+export const createOrder = (
+  carts,
+  customer_id,
+  total_price,
+  payment_method,
+  address,
+  phone
+) => {
+  let formData = new FormData();
+  formData.append("customer_id", customer_id);
+  formData.append("total_price", total_price);
+  formData.append("phone_number", phone);
+  formData.append("address", address);
+  formData.append("payment_method", 1);
+  carts.forEach((e) => {
+    formData.append("order_item[]", JSON.stringify(e));
+  });
+  return axios({
+    url: `${BASE_URL}/api/orders/create`,
+    method: "post",
+    data: formData,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};

@@ -18,7 +18,7 @@ async function authenticate({ phone_number, password }) {
     where: { phone_number },
   });
 
-  if (!user || !(await bcrypt.compare(password, user.hash)))
+  if (!user || !(await bcrypt.compare(password, user.password)))
     throw "Username or password is incorrect";
 
   // authentication successful

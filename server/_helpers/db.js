@@ -34,6 +34,25 @@ async function initialize() {
   // init models and add them to the exported db object
   db.OrderItem = require("../order-items/order-item.model")(sequelize);
 
+  // create relationships between models.
+  db.Order.hasMany(db.OrderItem, {
+    foreignKey: "order_id",
+    as: "order_items",
+  });
+  db.OrderItem.belongsTo(db.Order, {
+    foreignKey: "order_id",
+  });
+
+  db.Order.belongsTo(db.User, {
+    foreignKey: "customer_id",
+  });
+
+  //db.product ~ db. ProductType.
+  // db.orderItem ~ db.Product.
+  db.OrderItem.belongsTo(db.Product, {
+    foreignKey: "product_id",
+  });
+
   // sync all models with database
   await sequelize.sync();
 }

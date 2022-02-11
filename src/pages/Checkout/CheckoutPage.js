@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Api from "src/apis";
+import Api, { ApiOrder } from "src/apis";
 import { ACTION_TYPE } from "src/stores/AppStore";
 import { format } from "src/utils/commons/Number";
 import { withContext } from "src/utils/commons/withContext";
@@ -157,12 +157,11 @@ class CheckoutPage extends Component {
       (prev, e) => prev + e.amount * e.price,
       0
     );
-    Api.createOrderData(
+    ApiOrder.createOrder(
       this.props.state.carts,
-      1,
+      this.props.state.user.id,
       amount,
-      1,
-      "2dsaf",
+      this.payment_method ?? "cod",
       this.address,
       this.phone
     ).then((res) => {

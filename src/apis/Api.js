@@ -79,7 +79,7 @@ export const createTestApi = async () => {
   formData.append("payment_method", 1);
 
   formData.append(
-    "list_orders[]",
+    "order_item[]",
     JSON.stringify({
       product_id: 1,
       amount: 1,
@@ -87,7 +87,7 @@ export const createTestApi = async () => {
     })
   );
   formData.append(
-    "list_orders[]",
+    "order_item[]",
     JSON.stringify({
       product_id: 2,
       amount: 1,
@@ -95,7 +95,7 @@ export const createTestApi = async () => {
     })
   );
   formData.append(
-    "list_orders[]",
+    "order_item[]",
     JSON.stringify({
       product_id: 13,
       amount: 1,
