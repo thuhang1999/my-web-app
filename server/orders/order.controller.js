@@ -11,7 +11,8 @@ router.get("/:id", getOrderById);
 router.post("/create", createOrder);
 //TODO: requre admin authorization
 router.put("/:id", updateOrderById);
-router.delete("/:id", adminAuthorize(), _delete);
+//TODO: requre admin authorization
+router.delete("/:id", _delete);
 
 function getAll(req, res, next) {
   orderService
@@ -61,44 +62,40 @@ function updateOrderById(req, res, next) {
   orderService
     .update(req.params.id, req.body)
     .then((order) => {
-      console.log(
-        `{RNLog} ~ file: order.controller.js ~ line 64 ~ .then ~ order`,
-        order.dataValues
-      );
       let orderItems = req.body["order_item"];
       let orderItemsParsed = [];
       if (Array.isArray(orderItems)) {
         orderItemsParsed = orderItems.map((e) => JSON.parse(e));
       }
 
-      // exists order item id ==> update order item
-      orderItemsParsed
-        .filter((e) => !!e.id)
-        .forEach((e) => {
-          orderItemService.update(e.id, e);
-        });
-
       // not exists order item id ==> create order item
-      orderItemsParsed
-        .filter((e) => !e.id)
-        .forEach((e) => {
-          orderItemService.create(e);
-        });
+      let neededCreateOrderItem = orderItemsParsed.filter((e) => !e.id);
+
+      // exists order item id ==> update order item
+      let neededUpdateOrderItem = orderItemsParsed.filter((e) => !!e.id);
 
       // check if order was not in order_item body, delete them;
+      let neededDeleteOrderItem = [];
       order.dataValues.order_items.forEach((e) => {
         // not found
         if (orderItemsParsed.findIndex((e2) => e2.id === e.id) === -1) {
-          console.log("{RNLog} TCL --> id:", e.id);
-          orderItemService.delete(e.id);
+          neededDeleteOrderItem.push(e);
         }
       });
 
-      res.json({
-        data: "Order updated successfully",
-        status: 200,
-        success: true,
-      });
+      Promise.all([
+        ...neededCreateOrderItem.map((e) => orderItemService.create(e)),
+        ...neededDeleteOrderItem.map((e) => orderItemService.delete(e.id)),
+        ...neededUpdateOrderItem.map((e) => orderItemService.update(e.id, e)),
+      ])
+        .then((values) => {
+          res.json({
+            data: "Order updated successfully",
+            status: 200,
+            success: true,
+          });
+        })
+        .catch(next);
     })
     .catch(next);
 }

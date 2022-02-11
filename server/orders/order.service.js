@@ -1,4 +1,5 @@
 const config = require("config.json");
+const orderItemService = require("../order-items/order-item.service");
 const db = require("_helpers/db");
 
 module.exports = {
@@ -77,13 +78,14 @@ async function create(params) {
 }
 
 async function update(id, params) {
-  const product = await getOrder(id);
+  const order = await getOrder(id);
 
-  await product.update(params);
-  return product;
+  await order.update(params);
+  return order;
 }
 
 async function _delete(id) {
-  const product = await getOrder(id);
-  await product.destroy();
+  const order = await getOrder(id);
+  await orderItemService.deleteAllByOrderId(id);
+  await order.destroy();
 }

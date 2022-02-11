@@ -1,3 +1,5 @@
+/* eslint-disable no-throw-literal */
+const Joi = require("joi");
 const db = require("_helpers/db");
 
 module.exports = {
@@ -7,6 +9,7 @@ module.exports = {
   bulkCreate,
   update,
   delete: _delete,
+  deleteAllByOrderId,
 };
 
 async function get(orderItemId) {
@@ -28,7 +31,18 @@ async function getAll(orderId) {
 }
 
 async function create(orderItem) {
-  return await db.OrderItem.create(orderItem);
+  let schema = Joi.object({
+    order_id: Joi.number().required(),
+    product_id: Joi.number().required(),
+    amount: Joi.number().required(),
+  });
+
+  const { value, error } = schema.validate(orderItem);
+  if (error) {
+    throw `Validation error: ${error.details.map((x) => x.message).join(", ")}`;
+  }
+
+  return await db.OrderItem.create(value);
 }
 
 async function bulkCreate(orderItems) {
@@ -51,4 +65,10 @@ async function _delete(orderItemId) {
   const orderItem = await getOrderItem(orderItemId);
 
   await orderItem.destroy();
+}
+
+async function deleteAllByOrderId(orderId) {
+  db.OrderItem.destroy({
+    where: { order_id: orderId },
+  });
 }
