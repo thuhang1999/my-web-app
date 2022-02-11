@@ -4,9 +4,8 @@ module.exports = model;
 function model(sequelize) {
   const attributes = {
     order_id: { type: DataTypes.INTEGER, allowNull: false },
-    customer_id: { type: DataTypes.INTEGER, allowNull: true },
     product_id: { type: DataTypes.INTEGER, allowNull: false },
-    amount: { type: DataTypes.STRING, allowNull: false },
+    amount: { type: DataTypes.INTEGER, allowNull: false },
   };
 
   const options = {

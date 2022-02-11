@@ -9,7 +9,7 @@ function model(sequelize) {
     address: { type: DataTypes.STRING, allowNull: true },
     fraud: { type: DataTypes.BOOLEAN, allowNull: true },
     is_admin: { type: DataTypes.BOOLEAN, allowNull: true },
-    hash: { type: DataTypes.STRING, allowNull: false },
+    password: { type: DataTypes.STRING, allowNull: false },
     created_at: { type: DataTypes.DATE, allowNull: true },
   };
 

@@ -31,30 +31,49 @@ function getOrderById(req, res, next) {
 }
 
 function createOrder(req, res, next) {
+  let carts = req.body["order_item"];
+  const { order_item, ...dataWithoutOrderItem } = req.body;
+  let order_items = [];
+  if (Array.isArray(carts)) {
+    order_items = carts.map((e) => JSON.parse(e));
+  }
+
+  let params = {
+    ...dataWithoutOrderItem,
+    order_items,
+  };
+  console.log("{RNLog} TCL --> params:", params);
+
   orderService
-    .create(req.body)
+    .create(params)
     .then((order) => {
-      let orderItems = req.body["list_orders"];
-      console.log(
-        `{RNLog} ~ file: order.controller.js ~ line 38 ~ .then ~ orderItems`,
-        orderItems
-      );
-      let orderItemsWithOrderId = [];
-      if (Array.isArray(orderItems)) {
-        orderItemsWithOrderId = orderItems.map((e) => ({
-          ...JSON.parse(e),
-          order_id: order.dataValues.order_id,
-        }));
-      }
-      orderItemService.bulkCreate(orderItemsWithOrderId).then(() => {
-        res.json({
-          data: "Order created successfully",
-          status: 200,
-          success: true,
-        });
+      res.json({
+        data: "Order created successfully",
+        status: 200,
+        success: true,
       });
     })
     .catch(next);
+  // orderService
+  //   .create(req.body)
+  //   .then((order) => {
+  //     let orderItems = req.body["list_orders"];
+  //     let orderItemsWithOrderId = [];
+  //     if (Array.isArray(orderItems)) {
+  //       orderItemsWithOrderId = orderItems.map((e) => ({
+  //         ...JSON.parse(e),
+  //         order_id: order.dataValues.order_id,
+  //       }));
+  //     }
+  //     orderItemService.bulkCreate(orderItemsWithOrderId).then(() => {
+  //       res.json({
+  //         data: "Order created successfully",
+  //         status: 200,
+  //         success: true,
+  //       });
+  //     });
+  //   })
+  //   .catch(next);
 }
 
 function updateOrderById(req, res, next) {
