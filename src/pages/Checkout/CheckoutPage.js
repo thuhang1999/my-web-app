@@ -74,8 +74,10 @@ class CheckoutPage extends Component {
                 label="Chuyển khoản qua ngân hàng"
                 name="group1"
                 type={type}
-                id={`inline-${type}-1`}
-              />
+                id={`inline-${type}-1`}>
+                <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
+              </Form.Check>
+
               <Form.Check
                 inline
                 label="Thanh toán qua giao hàng (COD)"

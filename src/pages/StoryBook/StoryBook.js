@@ -15,8 +15,14 @@ import CustomerManagement from "../Admin/CustomerManagement/CustomerManagement";
 import AdProductDetailPage from "../Admin/ProductManagement/ProductDetailPage/ProductManagerDetailPage";
 import OrderManagementDetailPage from "../Admin/OrderManagement/OrderManagementDetailPage/OrderManagementDetailPage";
 import BookOrderManagementDetailPage from "../Admin/OrderManagement/OrderManagementDetailPage/BookOrderManagementDetailPage";
+import CreateOrderPage from "../Admin/OrderManagement/OrderManagementDetailPage/CreateOrderPage";
+import CreateCustomerPage from "../Admin/CustomerManagement/CreateCustomerPage";
+import CreateBookOrderPage from "../Admin/OrderManagement/OrderManagementDetailPage/CreateBookOrderPage";
+import CheckoutPage from "../Checkout/CheckoutPage";
+
+
 export default class StoryBook extends Component {
   render() {
-    return <SalesPage />;
+    return <CreateBookOrderPage />;
   }
 }
