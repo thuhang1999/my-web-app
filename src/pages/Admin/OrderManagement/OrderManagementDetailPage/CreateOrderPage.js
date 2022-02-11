@@ -34,6 +34,16 @@ export default class CreateOrderPage extends Component {
                             <Form.Control as="textarea" rows={3} />
                         </Form.Group>
                     </Form>
+
+                    <Form action="/search" method="get" class="search-bar" role="search">
+                        <input type="hidden" name="type" value="article"></input>
+                        <input type="search" name="q" value="" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm..."></input>
+                        <Button variant="primary" type="submit">
+                            Tìm kiếm
+                        </Button>
+
+
+                    </Form>
                     <div>
                         <tr>
                             <th></th>

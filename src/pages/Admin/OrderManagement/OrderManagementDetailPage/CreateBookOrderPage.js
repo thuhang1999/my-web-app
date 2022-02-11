@@ -38,9 +38,9 @@ export default class CreateBookOrderPage extends Component {
                         <input type="hidden" name="type" value="article"></input>
                         <input type="search" name="q" value="" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm..."></input>
                         <Button variant="primary" type="submit">
-                            Tìm
+                            Tìm kiếm
                         </Button>
-                        
+
 
                     </Form>
 
