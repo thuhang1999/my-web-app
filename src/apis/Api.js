@@ -72,46 +72,9 @@ export const createOrderData = async (
   });
 };
 
-export const createTestApi = async () => {
-  let formData = new FormData();
-  formData.append("customer_id", 10);
-  formData.append("total_price", 20000);
-  formData.append("payment_method", 1);
-
-  formData.append(
-    "order_item[]",
-    JSON.stringify({
-      product_id: 1,
-      amount: 1,
-      price: 2000,
-    })
-  );
-  formData.append(
-    "order_item[]",
-    JSON.stringify({
-      product_id: 2,
-      amount: 1,
-      price: 2000,
-    })
-  );
-  formData.append(
-    "order_item[]",
-    JSON.stringify({
-      product_id: 13,
-      amount: 1,
-      price: 2000,
-    })
-  );
-
-  console.log("{RNLog} TCL --> call:", `${BASE_URL}/api/test`);
+export const requestWithToken = (options) => {
   return axios({
-    url: `${BASE_URL}/api/test`,
-    method: "post",
-    data: formData,
-    headers: { "Content-Type": "multipart/form-data" },
+    ...options,
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") },
   });
 };
-
-createTestApi().then((res) => {
-  console.log("{RNLog} TCL --> res:", res);
-});

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Col, Dropdown, Form } from "react-bootstrap";
 import { ApiProduct } from "src/apis";
+import { format } from "src/utils/commons/Number";
 import { withRouter } from "src/utils/commons/withRouter";
 
 class ProductManagement extends Component {
@@ -8,19 +9,24 @@ class ProductManagement extends Component {
     super(props);
     this.state = {
       products: [],
+      page: 1,
     };
   }
 
   componentDidMount() {
-    ApiProduct.getAllProduct().then((res) => {
-      console.log("{RNLog} TCL --> res:", res);
+    this.fetchData(this.state.page);
+  }
+
+  fetchData = async (page) => {
+    return ApiProduct.getAllProduct(page).then((res) => {
       if (Array.isArray(res.data.data)) {
         this.setState({
-          products: res.data.data,
+          products: [...this.state.products, ...res.data.data],
+          page: this.state.page + 1,
         });
       }
     });
-  }
+  };
 
   render() {
     return (
@@ -80,6 +86,9 @@ class ProductManagement extends Component {
           </table>
         </div>
         <br></br>
+        <Button className="text-center" onClick={this.onClickViewMore}>
+          Xem thêm
+        </Button>
       </div>
     );
   }
@@ -96,8 +105,8 @@ class ProductManagement extends Component {
             style={{ width: "100px", height: "100px" }}
           />
         </td>
-        <td class="text-center">{item.price}</td>
-        <td class="text-center">{item.product_type_id}</td>
+        <td class="text-center">{format(item.price)} đ</td>
+        <td class="text-center">{item?.product_type?.product_type_name}</td>
         <td class="text-center">{item.created_at}</td>
 
         <td class="text-center">
@@ -123,11 +132,26 @@ class ProductManagement extends Component {
     this.props.navigate(`/admin/products/detail/${item.product_id}`);
   };
 
+  onClickViewMore = () => {
+    this.fetchData(this.state.page);
+  };
+
   onClickDeleteProduct = (item) => () => {
     console.log(
-      `{RNLog} ~ file: ProductManagement.js ~ line 171 ~ ProductManagement ~ onClickDeleteProduct ~ item`,
+      `{RNLog} ~ file: ProductManagement.js ~ line 140 ~ ProductManagement ~ onClickDeleteProduct ~ item`,
       item
     );
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("Bạn có chắc chắn muốn xoá tài khoản này không?")) {
+      ApiProduct.deleteProductById(item?.product_id).then((res) => {
+        if (res.data.success) {
+          alert("Xóa thành công");
+          this.props.navigate("/admin/products");
+        } else {
+          alert("Xóa thất bại");
+        }
+      });
+    }
   };
 }
 
