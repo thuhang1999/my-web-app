@@ -18,6 +18,12 @@ async function getAll(orderId) {
     where: {
       order_id: orderId,
     },
+    include: [
+      {
+        model: db.Product,
+        as: "product",
+      },
+    ],
   });
 }
 

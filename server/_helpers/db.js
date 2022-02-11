@@ -45,8 +45,6 @@ async function initialize() {
 
   db.Order.belongsTo(db.User, {
     foreignKey: "customer_id",
-    onDelete: "RESTRICT",
-    onUpdate: "RESTRICT",
   });
 
   //db.product ~ db. ProductType.
