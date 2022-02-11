@@ -15,7 +15,13 @@ module.exports = {
 async function getAll(page = 1, per_page = 10) {
   return await db.Product.findAll({
     offset: (page - 1) * per_page,
-    limit: per_page * page,
+    limit: per_page,
+    include: [
+      {
+        model: db.ProductType,
+        attributes: ["product_type_name"],
+      },
+    ],
   });
 }
 
@@ -24,7 +30,14 @@ async function getById(id) {
 }
 
 async function getProduct(id) {
-  const product = await db.Product.findByPk(id);
+  const product = await db.Product.findByPk(id, {
+    include: [
+      {
+        model: db.ProductType,
+        as: "product_type",
+      },
+    ],
+  });
   // eslint-disable-next-line no-throw-literal
   if (!product) throw "Product not found";
   return product;

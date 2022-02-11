@@ -3,12 +3,16 @@ const CART_DATA_CACHE_KEY = "cart_data_cache_key";
 const USER_DATA_CACHE_KEY = "user_data_cache_key";
 // localStorage.setItem(CART_DATA_CACHE_KEY, null);
 
-let cartLocalData = JSON.parse(localStorage.getItem(CART_DATA_CACHE_KEY)) ?? [];
-let userLocalData = JSON.parse(localStorage.getItem(USER_DATA_CACHE_KEY));
-console.log(
-  `{RNLog} ~ file: AppStore.js ~ line 8 ~ userLocalData`,
-  userLocalData
-);
+const tryParse = (any) => {
+  try {
+    return JSON.parse(any);
+  } catch (error) {
+    return null;
+  }
+};
+
+let cartLocalData = tryParse(localStorage.getItem(CART_DATA_CACHE_KEY)) ?? [];
+let userLocalData = tryParse(localStorage.getItem(USER_DATA_CACHE_KEY));
 
 const initialState = {
   user: userLocalData,
@@ -79,6 +83,7 @@ const StateProvider = ({ children }) => {
         };
       case ACTION_TYPE.SET_USER:
         localStorage.setItem(USER_DATA_CACHE_KEY, JSON.stringify(payload));
+        localStorage.setItem("token", payload.token);
         return {
           ...currentState,
           user: payload,

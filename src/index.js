@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import StoryBook from "./pages/StoryBook/StoryBook";
 import StateProvider from "./stores/AppStore";
 
-let useStoryBook = true;
+let useStoryBook = false;
 ReactDOM.render(
   <React.StrictMode>
     {!useStoryBook && (
