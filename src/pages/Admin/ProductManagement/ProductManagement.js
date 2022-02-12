@@ -10,6 +10,7 @@ class ProductManagement extends Component {
     this.state = {
       products: [],
       page: 1,
+      hasViewMore: true,
     };
   }
 
@@ -19,10 +20,12 @@ class ProductManagement extends Component {
 
   fetchData = async (page) => {
     return ApiProduct.getAllProduct(page).then((res) => {
-      if (Array.isArray(res.data.data)) {
+      let products = res.data.data;
+      if (Array.isArray(products)) {
         this.setState({
-          products: [...this.state.products, ...res.data.data],
+          products: [...this.state.products, ...products],
           page: this.state.page + 1,
+          hasViewMore: products.length === 10,
         });
       }
     });
@@ -86,9 +89,11 @@ class ProductManagement extends Component {
           </table>
         </div>
         <br></br>
-        <Button className="text-center" onClick={this.onClickViewMore}>
-          Xem thêm
-        </Button>
+        {this.state.hasViewMore && (
+          <Button className="text-center" onClick={this.onClickViewMore}>
+            Xem thêm
+          </Button>
+        )}
       </div>
     );
   }
@@ -142,11 +147,18 @@ class ProductManagement extends Component {
       item
     );
     // eslint-disable-next-line no-restricted-globals
-    if (confirm("Bạn có chắc chắn muốn xoá tài khoản này không?")) {
+    if (confirm("Bạn có chắc chắn muốn xoá sản phẩm này không?")) {
       ApiProduct.deleteProductById(item?.product_id).then((res) => {
         if (res.data.success) {
           alert("Xóa thành công");
-          this.props.navigate("/admin/products");
+          let products = [...this.state.products];
+          let index = products.findIndex(
+            (e) => e.product_id === item.product_id
+          );
+          if (index !== -1) {
+            products.splice(index, 1);
+          }
+          this.setState({ products });
         } else {
           alert("Xóa thất bại");
         }
