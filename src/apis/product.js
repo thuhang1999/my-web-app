@@ -25,7 +25,7 @@ export const createProduct = (product) => {
     formData.append(key, product[key]);
   });
 
-  return axios({
+  return requestWithToken({
     url: `${BASE_URL}/api/products/create`,
     method: "post",
     data: formData,
@@ -64,6 +64,13 @@ export const searchProductsByName = (name) => {
 export const getProductByType = (type, page, per_page) => {
   return axios({
     url: `${BASE_URL}/api/products/by_type?type=${type}&page=${page}&per_page=${per_page}`,
+    method: "get",
+  });
+};
+
+export const getAllProductTypes = () => {
+  return axios({
+    url: `${BASE_URL}/api/product_types`,
     method: "get",
   });
 };

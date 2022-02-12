@@ -65,8 +65,12 @@ class ProductManagement extends Component {
         <br></br>
         <div>
           <>
-            <Button variant="secondary">Thêm sản phẩm</Button>{" "}
-            <Button variant="link">Thoát</Button>
+            <Button variant="secondary" href="/admin/products/create">
+              Thêm sản phẩm
+            </Button>{" "}
+            <Button variant="link" href="/admin">
+              Quay lại trang chủ
+            </Button>
           </>
         </div>
         <br></br>

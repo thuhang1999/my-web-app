@@ -5,6 +5,7 @@ import CustomerManagement from "./pages/Admin/CustomerManagement/CustomerManagem
 import CustomerManagementDetail from "./pages/Admin/CustomerManagement/CustomerManagementDetail";
 import OrderManagement from "./pages/Admin/OrderManagement/OrderManagement";
 import OrderManagementDetailPage from "./pages/Admin/OrderManagement/OrderManagementDetailPage/OrderManagementDetailPage";
+import CreateProductPage from "./pages/Admin/ProductManagement/ProductDetailPage/CreateProductPage";
 import ProductManagerDetailPage from "./pages/Admin/ProductManagement/ProductDetailPage/ProductManagerDetailPage";
 import ProductManagement from "./pages/Admin/ProductManagement/ProductManagement";
 import CartPage from "./pages/Cart/CartPage";
@@ -49,6 +50,7 @@ function App() {
           path="admin/products/detail/:id"
           element={<ProductManagerDetailPage />}
         />
+        <Route path="admin/products/create" element={<CreateProductPage />} />
         <Route path="admin/orders" element={<OrderManagement />} />
         <Route
           path="admin/orders/detail/:id"
