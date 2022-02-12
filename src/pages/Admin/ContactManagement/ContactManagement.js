@@ -70,7 +70,9 @@ export default class ContactManagement extends Component {
                 </table>
             </div>
             <br></br>
-
+            <Button className="text-center" onClick={this.onClickViewMore}>
+                Xem thêm
+            </Button>
         </div>;
     }
 }

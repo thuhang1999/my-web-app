@@ -94,6 +94,9 @@ class OrderManagement extends Component {
           </table>
         </div> */}
         <br></br>
+        <Button className="text-center" onClick={this.onClickViewMore}>
+          Xem thêm
+        </Button>
       </div>
     );
   }
@@ -120,6 +123,8 @@ class OrderManagement extends Component {
           </Button>
         </td>
       </tr>
+
+
     );
   };
 
@@ -127,7 +132,7 @@ class OrderManagement extends Component {
     this.props.navigate(`/admin/orders/detail/${item.order_id}`);
   };
 
-  onClickDeleteOrderItem = (item) => () => {};
+  onClickDeleteOrderItem = (item) => () => { };
 }
 
 export default withRouter(OrderManagement);
