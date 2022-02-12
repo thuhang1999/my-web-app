@@ -36,10 +36,10 @@ class ProductManagement extends Component {
       <div>
         <h1>Quản lý sản phẩm</h1>
         <div>
-          <Col sm={10}>
+          {/* <Col sm={10}>
             <Form.Control type="text" placeholder="Tìm kiếm..." />
-          </Col>
-          <Dropdown>
+          </Col> */}
+          {/* <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               Tìm kiếm theo
             </Dropdown.Toggle>
@@ -48,9 +48,9 @@ class ProductManagement extends Component {
               <Dropdown.Item href="#/action-1">Tên sản phẩm</Dropdown.Item>
               <Dropdown.Item href="#/action-2">Mã sản phẩm</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
-        <div>
+        {/* <div>
           <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               Sắp xếp theo
@@ -61,7 +61,7 @@ class ProductManagement extends Component {
               <Dropdown.Item href="#/action-2">Cũ nhất</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </div>
+        </div> */}
         <br></br>
         <div>
           <>

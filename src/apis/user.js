@@ -14,11 +14,12 @@ export const login = (phone_number, password) => {
   });
 };
 
-export const register = (username, phone_number, password) => {
+export const register = (info) => {
   let formData = new FormData();
-  formData.append("username", username);
-  formData.append("phone_number", phone_number);
-  formData.append("password", password);
+
+  Object.keys(info).forEach((key) => {
+    formData.append(key, info[key]);
+  });
 
   return axios({
     url: `${BASE_URL}/api/users/register`,

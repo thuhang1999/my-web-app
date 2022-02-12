@@ -95,7 +95,11 @@ class SignUpPage extends Component {
   onClickSignUp = (event) => {
     event.preventDefault();
     if (this.password === this.password2) {
-      Api.register(this.userName, this.phone, this.password)
+      Api.register({
+        username: this.userName,
+        phone_number: this.phone,
+        password: this.password,
+      })
         .then((res) => {
           console.log("{RNLog} TCL --> res:", res);
           if (res.data.status === 200) {

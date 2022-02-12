@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, literal } = require("sequelize");
 
 module.exports = model;
 
@@ -10,7 +10,11 @@ function model(sequelize) {
     fraud: { type: DataTypes.BOOLEAN, allowNull: true },
     is_admin: { type: DataTypes.BOOLEAN, allowNull: true },
     password: { type: DataTypes.STRING, allowNull: false },
-    created_at: { type: DataTypes.DATE, allowNull: true },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: literal("CURRENT_TIMESTAMP"),
+    },
   };
 
   const options = {
