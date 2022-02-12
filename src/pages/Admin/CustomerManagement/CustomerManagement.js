@@ -8,16 +8,15 @@ class CustomerManagement extends Component {
     super(props);
     this.state = {
       users: [],
+      shouldShowViewMore: false,
     };
   }
 
   componentDidMount() {
     Api.getAllUser().then((res) => {
-      console.log(
-        `{RNLog} ~ file: CustomerManagement.js ~ line 16 ~ CustomerManagement ~ Api.getAllUser ~ res`,
-        res
-      );
-      this.setState({ users: res.data?.data });
+      if (Array.isArray(res.data.data)) {
+        this.setState({ users: res.data?.data });
+      }
     });
   }
 
@@ -25,7 +24,7 @@ class CustomerManagement extends Component {
     return (
       <div>
         <h1>Quản lý khách hàng</h1>
-        <div>
+        {/* <div>
           <Col sm={10}>
             <Form.Control type="text" placeholder="Tìm kiếm..." />
           </Col>
@@ -41,8 +40,8 @@ class CustomerManagement extends Component {
               <Dropdown.Item href="#/action-2">Số điện thoại</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               Sắp xếp theo
@@ -53,12 +52,16 @@ class CustomerManagement extends Component {
               <Dropdown.Item href="#/action-2">Cũ nhất</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </div>
+        </div> */}
         <br></br>
         <div>
           <>
-            <Button variant="secondary">Thêm khách hàng</Button>{" "}
-            <Button variant="link">Thoát</Button>
+            <Button variant="secondary" href="/admin/users/create">
+              Thêm khách hàng
+            </Button>{" "}
+            <Button variant="link" href="/admin">
+              Quay lại trang Admin
+            </Button>
           </>
         </div>
         <br></br>
@@ -79,9 +82,11 @@ class CustomerManagement extends Component {
           </table>
         </div>
         <br></br>
-        <Button className="text-center" onClick={this.onClickViewMore}>
-          Xem thêm
-        </Button>
+        {this.state.shouldShowViewMore && (
+          <Button className="text-center" onClick={this.onClickViewMore}>
+            Xem thêm
+          </Button>
+        )}
       </div>
     );
   }
@@ -94,7 +99,9 @@ class CustomerManagement extends Component {
         <td class="text-center">{item.created_at}</td>
 
         <td class="text-center">
-          <Button variant="link">Xem chi tiết</Button>
+          <Button variant="link" onClick={this.onClickEditUser(item)}>
+            Xem chi tiết
+          </Button>
         </td>
 
         <td class="text-center">
