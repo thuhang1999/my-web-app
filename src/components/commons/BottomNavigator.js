@@ -41,15 +41,8 @@ export default class BottomNavigator extends Component {
                   <a href="/pages/gioi-thieu" className="bottom-nav-link">
                     Thông tin nhà hàng
                   </a>
-                  <a href="/pages/uu-dai-vip" className="bottom-nav-link">
-                    Chính sách hội viên
-                  </a>
-                  <a
-                    href="/blogs/uu-dai?view=khuyenmai"
-                    className="bottom-nav-link"
-                  >
-                    Khuyến mãi
-                  </a>
+
+
                   <a href="/pages/lien-he" className="bottom-nav-link">
                     Liên hệ
                   </a>

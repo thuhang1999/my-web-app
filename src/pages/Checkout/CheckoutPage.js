@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Accordion } from "react-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -69,19 +70,7 @@ class CheckoutPage extends Component {
         <Form>
           {["radio"].map((type) => (
             <div key={`inline-${type}`} className="mb-3">
-              <Form>
-                {['radio'].map((type) => (
-                  <div key={type} className="mb-3">
-                    <Form.Check type={type} id={`check-api-${type}`}>
-                      <Form.Check.Input type={type} isValid />
-                      <Form.Check.Label>{`Chuyển khoản qua ngân hàng ${type}`}</Form.Check.Label>
-                      <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
-                    </Form.Check>
-                  </div>
-                ))}
-              </Form>
-              <Form.Check.Label>{`Chuyển khoản qua ngân hàng ${type}`}</Form.Check.Label>
-              <Form.Control.Feedback type="valid">You did it!</Form.Control.Feedback>
+
               <Form.Check
                 inline
                 label="Chuyển khoản qua ngân hàng"
@@ -90,7 +79,22 @@ class CheckoutPage extends Component {
                 id={`inline-${type}-1`}>
 
               </Form.Check>
+              <Accordion defaultActiveKey="0">
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>Thông tin chuyển khoản</Accordion.Header>
+                  <Accordion.Body>
+                    <p>Sau khi chọn "Đặt hàng", vui lòng ghi nhớ Mã đơn hàng và chuyển khoản vào tài khoản theo thông tin:</p>
+                    <p>Ngân hàng: Vietcombank</p>
+                    <p>Chi nhánh: Thành phố Thái Nguyên</p>
+                    <p>Số tài khoản: 0071001335200</p>
+                    <p>Tên tài khoản: NHA HANG HIEP THUONG</p>
+                    <p>Ghi chú chuyển khoản: (Mã đơn hàng)</p>
+                    <p>Vui lòng sử dụng hình thức chuyển tiền ngay 24/7. Đơn hàng cần được chuyển khoản thanh toán trong vòng 20 phút sau khi Qúy Khách đặt hàng thành công.</p>
+                    <p>Sau đó, bạn vui lòng gửi hình ảnh hóa đơn/ giao dịch để chúng tôi xác nhận qua mail: nhahanghiepthuong@gmail.com</p>
+                  </Accordion.Body>
+                </Accordion.Item>
 
+              </Accordion>
               <Form.Check
                 inline
                 label="Thanh toán qua giao hàng (COD)"
@@ -104,6 +108,9 @@ class CheckoutPage extends Component {
         <div className="center">
           <Button variant="success" onClick={this.onClickSubmit}>
             Đặt hàng
+          </Button>
+          <Button variant="link" onClick={this.onClickSubmit}>
+            Giỏ hàng
           </Button>
         </div>
       </div>

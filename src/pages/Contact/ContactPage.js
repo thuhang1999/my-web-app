@@ -22,6 +22,7 @@ export default class ContactPage extends Component {
         <div className="h1">
           <h1>Liên hệ</h1>
         </div>
+        <h2>Liên hệ nhà hàng: 0974 816 870 - 0989 910 479</h2>
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Họ tên</Form.Label>
