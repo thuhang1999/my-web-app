@@ -16,6 +16,10 @@ class CustomerManagementDetail extends Component {
   componentDidMount() {
     let userId = this.props.eParams?.id;
     Api.getUserById(userId).then((res) => {
+      console.log(
+        `{RNLog} ~ file: CustomerManagementDetail.js ~ line 19 ~ CustomerManagementDetail ~ Api.getUserById ~ res`,
+        res
+      );
       this.setState({ user: res.data?.data });
     });
   }

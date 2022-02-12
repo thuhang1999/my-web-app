@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Col, Dropdown, Form } from "react-bootstrap";
 import { ApiOrder } from "src/apis";
+import { format } from "src/utils/commons/Number";
 import { withRouter } from "src/utils/commons/withRouter";
 
 class OrderManagement extends Component {
@@ -8,25 +9,30 @@ class OrderManagement extends Component {
     super(props);
     this.state = {
       orders: [],
+      page: 1,
     };
   }
   componentDidMount() {
-    ApiOrder.getAllOrders(1, 10).then((res) => {
-      console.log(
-        `{RNLog} ~ file: OrderManagement.js ~ line 14 ~ OrderManagement ~ ApiOrder.getAllOrders ~ res`,
-        res
-      );
-      if (Array.isArray(res.data.data)) {
-        this.setState({ orders: res.data.data });
+    this.fetchData();
+  }
+
+  fetchData = () => {
+    ApiOrder.getAllOrders(this.state.page, 10).then((res) => {
+      let orders = res.data.data;
+      if (Array.isArray(orders)) {
+        this.setState({
+          orders: [...this.state.orders, ...orders],
+          page: this.state.page + 1,
+        });
       }
     });
-  }
+  };
 
   render() {
     return (
-      <div>
+      <div className="manager-detail-page">
         <h1>Quản lý đơn hàng</h1>
-        <div>
+        {/* <div>
           <Col sm={10}>
             <Form.Control type="text" placeholder="Tìm kiếm..." />
           </Col>
@@ -41,15 +47,15 @@ class OrderManagement extends Component {
               <Dropdown.Item href="#/action-2">Tên khách hàng</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </div>
+        </div> */}
         <br></br>
-        <div>
+        {/* <div>
           <>
             <Button variant="secondary">Thêm đơn ship</Button>{" "}
             <Button variant="secondary">Thêm đơn đặt bàn</Button>{" "}
             <Button variant="link">Thoát</Button>
           </>
-        </div>
+        </div> */}
         <br></br>
         <div className="tb_admin">
           <table className="tb_admin" border="1">
@@ -105,9 +111,9 @@ class OrderManagement extends Component {
     return (
       <tr key={item?.order_id}>
         <td class="text-center">{item?.order_id}</td>
-        <td class="text-center">{item?.customer_id}</td>
+        <td class="text-center">{item?.user?.username}</td>
         <td class="text-center">{item?.order_time}</td>
-        <td class="text-center">{item?.total_price}</td>
+        <td class="text-center">{format(item?.total_price)} đ</td>
 
         <td class="text-center">
           <Button variant="link" onClick={this.onClickEditOrderItem(item)}>
@@ -123,8 +129,6 @@ class OrderManagement extends Component {
           </Button>
         </td>
       </tr>
-
-
     );
   };
 
@@ -132,7 +136,30 @@ class OrderManagement extends Component {
     this.props.navigate(`/admin/orders/detail/${item.order_id}`);
   };
 
-  onClickDeleteOrderItem = (item) => () => { };
+  onClickDeleteOrderItem = (item) => () => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa đơn hàng này?")) {
+      ApiOrder.deleteOrderById(item?.order_id).then((res) => {
+        if (res.data.success) {
+          alert("Xóa thành công");
+          let index = this.state.orders.findIndex(
+            (e) => e.order_id === item.order_id
+          );
+          console.log("{RNLog} TCL --> index:", index);
+          if (index > -1) {
+            let newOrders = [...this.state.orders];
+            newOrders.splice(index, 1);
+            this.setState({ orders: newOrders });
+          }
+        } else {
+          alert("Có lỗi xảy ra. Vui lòng thử lại");
+        }
+      });
+    }
+  };
+
+  onClickViewMore = () => {
+    this.fetchData();
+  };
 }
 
 export default withRouter(OrderManagement);

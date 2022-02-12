@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { ApiOrder } from "src/apis";
+import { format } from "src/utils/commons/Number";
 import { withParams } from "src/utils/commons/withParams";
 import { withRouter } from "src/utils/commons/withRouter";
 
@@ -31,27 +32,24 @@ class OrderManagementDetailPage extends Component {
               <Form.Label>Mã đơn hàng</Form.Label>
               <Form.Control value={order?.order_id} disabled type="text" />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Tên khách hàng</Form.Label>
               <Form.Control
-                value={order?.customer_id}
-                disabled
+                value={order?.user?.username}
                 type="text"
                 placeholder="Nhập họ tên của khách hàng"
+                disabled
               />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Địa chỉ giao hàng</Form.Label>
               <Form.Control
                 value={order?.address}
-                disabled
                 type="text"
                 placeholder="Nhập địa chỉ giao hàng"
+                onChange={this.onChangeAddress}
               />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Ngày giờ đặt hàng</Form.Label>
               <Form.Control
@@ -61,48 +59,41 @@ class OrderManagementDetailPage extends Component {
                 placeholder="Chọn ngày giờ đặt hàng"
               />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Tổng giá trị đơn hàng</Form.Label>
-              <Form.Control disabled type="text" value={order?.total_price} />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Trạng thái đơn hàng</Form.Label>
               <Form.Control
-                value="Đang chờ xác nhận"
-                disabled
                 type="text"
-                placeholder=""
+                value={order?.total_price}
+                onChange={this.onChangeTotalPrice}
               />
             </Form.Group>
+            <label for="SortBy">Trạng thái đơn hàng</label>
+            {"   "}
+            <select name="SortBy" id="SortBy" onChange={this.onChangeStatus}>
+              <option value={0}>Đang chờ xác nhận</option>
+              <option value={1}>Đã xác nhận</option>
+              <option value={2}>Đang giao</option>
+              <option value={3}>Đã giao</option>
+              <option value={4}>Hoàn thành</option>
+            </select>
           </div>
-          <div>
-            <table className="tb_order" border="1">
+          <br />
+          <br />
+          <div className="tb_admin">
+            <table className="tb_admin" border="1">
               <tr>
-                <th colspan="3">DANH SÁCH SẢN PHẨM</th>
+                <th colspan="8">DANH SÁCH SẢN PHẨM</th>
               </tr>
               <tr>
-                <th>Mã sản phẩm</th>
-                <th>Tên sản phẩm</th>
-                <th>Hình ảnh sản phẩm</th>
-                <th>Đơn giá</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
+                <th class="text-center">Mã sản phẩm</th>
+                <th class="text-center">Tên sản phẩm</th>
+                <th class="text-center">Hình ảnh sản phẩm</th>
+                <th class="text-center">Đơn giá</th>
+                <th class="text-center">Số lượng</th>
+                <th class="text-center">Thành tiền</th>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>Cá chép om dưa</td>
-                <td>
-                  <img
-                    className="img"
-                    src="https://hoaninh.danang.gov.vn/wp-content/uploads/2019/01/nha-hang-8.jpg"
-                  ></img>
-                </td>
-                <td>200000</td>
-                <td>2</td>
-                <td>400000</td>
-              </tr>
+              {Array.isArray(this.state.order?.order_items) &&
+                this.state.order?.order_items.map(this.renderOrderItemDetail)}
             </table>
           </div>
         </Form>
@@ -111,13 +102,37 @@ class OrderManagementDetailPage extends Component {
           <Button variant="secondary" onClick={this.onClickDeleteOrder}>
             Xóa
           </Button>{" "}
-          <Button variant="link">Thoát</Button>
+          <Button variant="link" href="/admin/orders">
+            Quay lại
+          </Button>
         </div>
 
         <br></br>
       </div>
     );
   }
+
+  renderOrderItemDetail = (item) => {
+    return (
+      <tr>
+        <td class="text-center">{item?.product_id}</td>
+        <td class="text-center">{item?.product?.product_name}</td>
+        <td class="text-center">
+          <img
+            className="img"
+            src={item?.product?.image}
+            alt={"..."}
+            style={{ width: "100px", height: "100px" }}
+          ></img>
+        </td>
+        <td class="text-center">{format(item?.product?.price)} đ</td>
+        <td class="text-center">{item?.amount}</td>
+        <td class="text-center">
+          {format(item?.product?.price * item?.amount)}
+        </td>
+      </tr>
+    );
+  };
 
   onClickDeleteOrder = () => {
     let orderId = this.props.eParams?.id;

@@ -76,6 +76,7 @@ const StateProvider = ({ children }) => {
           cartAmount: carts.reduce((prev, e) => prev + e.amount, 0),
         };
       case ACTION_TYPE.RESET_CART:
+        localStorage.setItem(CART_DATA_CACHE_KEY, null);
         return {
           ...currentState,
           carts: [],

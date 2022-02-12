@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, NOW } = require("sequelize");
 module.exports = model;
 
 function model(sequelize) {
@@ -11,10 +11,10 @@ function model(sequelize) {
     customer_id: { type: DataTypes.INTEGER, allowNull: true },
     phone_number: { type: DataTypes.STRING, allowNull: false },
     address: { type: DataTypes.STRING, allowNull: false },
-    status: { type: DataTypes.INTEGER, allowNull: true },
+    status: { type: DataTypes.INTEGER, allowNull: true, defaultValue: 0 },
     total_price: { type: DataTypes.INTEGER, allowNull: false },
-    order_time: { type: DataTypes.DATE, allowNull: true },
-    created_at: { type: DataTypes.DATE, allowNull: true },
+    order_time: { type: DataTypes.DATE, allowNull: true, defaultValue: NOW },
+    created_at: { type: DataTypes.DATE, allowNull: true, defaultValue: NOW },
     payment_method: { type: DataTypes.BOOLEAN, allowNull: true },
   };
 
