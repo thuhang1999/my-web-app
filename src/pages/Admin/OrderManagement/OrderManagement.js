@@ -49,13 +49,14 @@ class OrderManagement extends Component {
           </Dropdown>
         </div> */}
         <br></br>
-        {/* <div>
+        <div>
           <>
             <Button variant="secondary">Thêm đơn ship</Button>{" "}
-            <Button variant="secondary">Thêm đơn đặt bàn</Button>{" "}
+            {/* <Button variant="secondary">Thêm đơn đặt bàn</Button>{" "} */}
             <Button variant="link">Thoát</Button>
           </>
-        </div> */}
+        </div>
+
         <br></br>
         <div className="tb_admin">
           <table className="tb_admin" border="1">
@@ -67,6 +68,7 @@ class OrderManagement extends Component {
               <th class="text-center">Tên khách hàng</th>
               <th class="text-center">Thời gian đặt hàng</th>
               <th class="text-center">Tổng giá trị</th>
+              <th class="text-center">Trạng thái</th>
               <th class="text-center">Xem chi tiết</th>
               <th colSpan={3} class="text-center">
                 Tác vụ
@@ -114,7 +116,7 @@ class OrderManagement extends Component {
         <td class="text-center">{item?.user?.username}</td>
         <td class="text-center">{item?.order_time}</td>
         <td class="text-center">{format(item?.total_price)} đ</td>
-
+        <td class="text-center"></td>
         <td class="text-center">
           <Button variant="link" onClick={this.onClickEditOrderItem(item)}>
             Xem chi tiết
