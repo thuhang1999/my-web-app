@@ -40,6 +40,9 @@ async function initialize() {
   // init models and add them to the exported db object
   db.Contact = require("../contacts/contact.model")(sequelize);
 
+  // init models and add them to the exported db object
+  db.BookOrderItem = require("../book-items/book-item.model")(sequelize);
+
   // create relationships between models.
   db.Order.hasMany(db.OrderItem, {
     foreignKey: "order_id",
