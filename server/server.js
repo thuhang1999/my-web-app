@@ -20,6 +20,7 @@ app.use(
   "/api/product_types",
   require("./product-types/product-types.controller")
 );
+app.use("/api/contacts", require("./contacts/contact.controller"));
 
 //global error handler;
 app.use(errorHandler);
