@@ -17,6 +17,7 @@ import MembershipPage from "./pages/Membership/MembershipPage";
 import MenuPage from "./pages/Menu/MenuPage";
 import SalesPage from "./pages/Sales/SalesPage";
 import StoreInfoPage from "./pages/StoreInfo/StoreInfoPage";
+import ForgetPassword from "./pages/User/ForgotPassword";
 import LoginPage from "./pages/User/LoginPage";
 import SignUpPage from "./pages/User/SignUpPage";
 import UserPage from "./pages/User/UserPage";
@@ -59,6 +60,7 @@ function App() {
           path="admin/orders/detail/:id"
           element={<OrderManagementDetailPage />}
         />
+        <Route path="user/forgot-password" element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
   );

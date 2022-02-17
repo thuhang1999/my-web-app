@@ -17,8 +17,10 @@ router.put("/:id", updateProductById);
 router.delete("/:id", adminAuthorize(), _delete);
 
 function getAll(req, res, next) {
+  const { page, per_page, ...otherParams } = req.query;
+
   productService
-    .getAll(req.query.page, req.query.per_page)
+    .getAll(otherParams, page, per_page)
     .then((products) => {
       res.json({
         status: 200,

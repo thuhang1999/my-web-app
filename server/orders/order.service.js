@@ -2,6 +2,12 @@ const config = require("config.json");
 const orderItemService = require("../order-items/order-item.service");
 const db = require("_helpers/db");
 
+/**
+ * payment_method:
+ * 1: COD
+ * 2: Bank Transfer
+ */
+
 module.exports = {
   getAll,
   getById,

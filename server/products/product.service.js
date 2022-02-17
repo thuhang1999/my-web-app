@@ -12,10 +12,13 @@ module.exports = {
   search,
 };
 
-async function getAll(page = 1, per_page = 10) {
+async function getAll(params, page = 1, per_page = 10) {
   return await db.Product.findAll({
-    offset: (page - 1) * per_page,
-    limit: per_page,
+    offset: (Number(page) - 1) * Number(per_page),
+    limit: Number(per_page),
+    where: {
+      ...params,
+    },
     include: [
       {
         model: db.ProductType,

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SalesPage from "../Sales/SalesPage";
 import LoginPage from "../User/LoginPage";
 import SignUpPage from "../User/SignUpPage";
-import QuenMK from "../User/QuenMK";
+import QuenMK from "../User/ForgotPassword";
 import UserPage from "../User/UserPage";
 import ContactPage from "../Contact/ContactPage";
 import BottomNavigator from "src/components/commons/BottomNavigator";
@@ -21,8 +21,6 @@ import CreateBookOrderPage from "../Admin/OrderManagement/OrderManagementDetailP
 import CheckoutPage from "../Checkout/CheckoutPage";
 import CreateProductPage from "../Admin/ProductManagement/ProductDetailPage/CreateProductPage";
 import CreateContactPage from "../Admin/ContactManagement/ContactManagementDetailPage/CreateContactPage";
-
-
 
 export default class StoryBook extends Component {
   render() {

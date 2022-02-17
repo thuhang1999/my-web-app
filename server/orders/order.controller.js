@@ -51,7 +51,7 @@ function createOrder(req, res, next) {
     .create(params)
     .then((order) => {
       res.json({
-        data: "Order created successfully",
+        data: order,
         status: 200,
         success: true,
       });

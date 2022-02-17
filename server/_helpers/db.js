@@ -37,6 +37,9 @@ async function initialize() {
   // init models and add them to the exported db object
   db.ProductType = require("../product-types/product-types.model")(sequelize);
 
+  // init models and add them to the exported db object
+  db.Contact = require("../contacts/contact.model")(sequelize);
+
   // create relationships between models.
   db.Order.hasMany(db.OrderItem, {
     foreignKey: "order_id",
@@ -47,6 +50,11 @@ async function initialize() {
   });
 
   db.Order.belongsTo(db.User, {
+    foreignKey: "customer_id",
+  });
+
+  //db.Contact ~ db.User
+  db.Contact.belongsTo(db.User, {
     foreignKey: "customer_id",
   });
 

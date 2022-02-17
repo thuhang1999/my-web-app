@@ -33,7 +33,7 @@ export default class ExtraLgProductItem extends Component {
               <Card.Text className="extra-lg-product-item-price">
                 Giá: {Number(product.price).toLocaleString("vi")} đ
               </Card.Text>
-              <Button variant="success" onClick={this.props.onClick}>
+              <Button variant="success" onClick={this.onClick}>
                 Thêm vào giỏ hàng
               </Button>
             </div>
@@ -42,4 +42,8 @@ export default class ExtraLgProductItem extends Component {
       </div>
     );
   }
+
+  onClick = () => {
+    this.props.onClick(this.props.data);
+  };
 }
