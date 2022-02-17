@@ -22,6 +22,8 @@ app.use(
 );
 app.use("/api/contacts", require("./contacts/contact.controller"));
 
+app.use("/api/book-orders", require("./book-order/book-order.controller"));
+
 //global error handler;
 app.use(errorHandler);
 
