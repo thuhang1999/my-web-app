@@ -55,8 +55,8 @@ class OrderManagementDetailPage extends Component {
               <Form.Control
                 value={order?.created_at}
                 disabled
-                type="text"
-                placeholder="Chọn ngày giờ đặt hàng"
+                type="datetime"
+
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

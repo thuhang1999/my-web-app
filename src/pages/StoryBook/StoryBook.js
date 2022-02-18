@@ -21,11 +21,13 @@ import CreateBookOrderPage from "../Admin/OrderManagement/OrderManagementDetailP
 import CheckoutPage from "../Checkout/CheckoutPage";
 import CreateProductPage from "../Admin/ProductManagement/ProductDetailPage/CreateProductPage";
 import CreateContactPage from "../Admin/ContactManagement/ContactManagementDetailPage/CreateContactPage";
-
+import BookOrderPage from "../Checkout/BookOrderPage";
+import ContactManagementDetailPage from "../Admin/ContactManagement/ContactManagementDetailPage/ContactManagementDetailPage";
+import AccountAdminPage from "../Admin/CustomerManagement/CustomerManagementDetailPage/AccountAdminPage"
 
 
 export default class StoryBook extends Component {
   render() {
-    return <CheckoutPage />;
+    return <AccountAdminPage />;
   }
 }

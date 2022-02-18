@@ -3,7 +3,7 @@ import Navigator from "./components/commons/Navigator";
 import AdminPage from "./pages/Admin/AdminPage";
 import CreateCustomerPage from "./pages/Admin/CustomerManagement/CreateCustomerPage";
 import CustomerManagement from "./pages/Admin/CustomerManagement/CustomerManagement";
-import CustomerManagementDetail from "./pages/Admin/CustomerManagement/CustomerManagementDetail";
+import CustomerManagementDetail from "./pages/Admin/CustomerManagement/CustomerManagementDetailPage/CustomerManagementDetail";
 import OrderManagement from "./pages/Admin/OrderManagement/OrderManagement";
 import OrderManagementDetailPage from "./pages/Admin/OrderManagement/OrderManagementDetailPage/OrderManagementDetailPage";
 import CreateProductPage from "./pages/Admin/ProductManagement/ProductDetailPage/CreateProductPage";

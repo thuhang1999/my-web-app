@@ -77,8 +77,8 @@ export default class BookOrderPage extends Component {
 
                         </Accordion>
 
-                        <p>Tổng tiền: 300000 đ</p>
-                        <p>Tiền cọc: 90000 đ</p>
+                        <p>Tổng tiền: 2500000 đ</p>
+                        <p>Tiền cọc: 750000 đ</p>
 
                         <Button variant="primary" type="submit">
                             Đặt bàn

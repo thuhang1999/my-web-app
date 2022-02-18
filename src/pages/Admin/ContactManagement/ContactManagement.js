@@ -5,7 +5,7 @@ export default class ContactManagement extends Component {
     render() {
         return <div>
             <h1>Quản lý liên hệ</h1>
-            <div>
+            {/* <div>
                 <Col sm={10}>
                     <Form.Control type="text" placeholder="Tìm kiếm..." />
                 </Col>
@@ -19,7 +19,7 @@ export default class ContactManagement extends Component {
                         <Dropdown.Item href="#/action-2">Số điện thoại</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-            </div>
+            </div><br></br>
             <div>
 
                 <Dropdown>
@@ -32,7 +32,7 @@ export default class ContactManagement extends Component {
                         <Dropdown.Item href="#/action-2">Cũ nhất</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-            </div>
+            </div> */}
             <br></br>
             <div>
                 <>
@@ -54,16 +54,21 @@ export default class ContactManagement extends Component {
                         <th>Số điện thoại</th>
                         <th>Ngày liên hệ</th>
                         <th>Xem chi tiết</th>
-
+                        <th>Tác vụ</th>
                     </tr>
                     <tr>
                         <td>1</td>
+
                         <td>Thu Hằng</td>
-                        <td>0368202676</td>
-                        <td>200000</td>
+                        <td>0354854221</td>
+                        <td>20/01/2022</td>
 
                         <td>
                             <Button variant="link">Xem chi tiết</Button>
+                        </td>
+                        <td>
+                            <Button variant="link">Sửa</Button>
+                            <Button variant="link">Xóa</Button>
                         </td>
                     </tr>
 
@@ -73,6 +78,7 @@ export default class ContactManagement extends Component {
             <Button className="text-center" onClick={this.onClickViewMore}>
                 Xem thêm
             </Button>
+
         </div>;
     }
 }

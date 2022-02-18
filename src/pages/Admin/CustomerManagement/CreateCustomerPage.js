@@ -82,6 +82,7 @@ class CreateCustomerPage extends Component {
             >
               Thêm
             </Button>
+            <Button variant="link">Trở về</Button>
           </Form>
         </div>
       </div>
