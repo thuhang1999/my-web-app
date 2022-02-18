@@ -5,6 +5,7 @@ import CreateCustomerPage from "./pages/Admin/CustomerManagement/CreateCustomerP
 import CustomerManagement from "./pages/Admin/CustomerManagement/CustomerManagement";
 import CustomerManagementDetail from "./pages/Admin/CustomerManagement/CustomerManagementDetailPage/CustomerManagementDetail";
 import OrderManagement from "./pages/Admin/OrderManagement/OrderManagement";
+import CreateBookOrderPage from "./pages/Admin/OrderManagement/OrderManagementDetailPage/CreateBookOrderPage";
 import OrderManagementDetailPage from "./pages/Admin/OrderManagement/OrderManagementDetailPage/OrderManagementDetailPage";
 import CreateProductPage from "./pages/Admin/ProductManagement/ProductDetailPage/CreateProductPage";
 import ProductManagerDetailPage from "./pages/Admin/ProductManagement/ProductDetailPage/ProductManagerDetailPage";
@@ -59,6 +60,8 @@ function App() {
           path="admin/orders/detail/:id"
           element={<OrderManagementDetailPage />}
         />
+        <Route />
+        <Route path="book_orders/create" element={<CreateBookOrderPage />} />
       </Routes>
     </BrowserRouter>
   );
