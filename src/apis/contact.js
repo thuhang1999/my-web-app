@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "./Api";
+import { BASE_URL, requestWithToken } from "./Api";
 
 export const getAll = (page, per_page, query = {}) => {
   return axios({
@@ -37,7 +37,7 @@ export const update = (id, contact) => {
 };
 
 export const _delete = (id) => {
-  return axios({
+  return requestWithToken({
     url: `${BASE_URL}/api/contacts/${id}`,
     method: "delete",
   });

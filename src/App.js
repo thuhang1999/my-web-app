@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigator from "./components/commons/Navigator";
 import AdminPage from "./pages/Admin/AdminPage";
+import ContactManagement from "./pages/Admin/ContactManagement/ContactManagement";
+import ContactManagementDetailPage from "./pages/Admin/ContactManagement/ContactManagementDetailPage/ContactManagementDetailPage";
+import CreateContactPage from "./pages/Admin/ContactManagement/ContactManagementDetailPage/CreateContactPage";
 import CreateCustomerPage from "./pages/Admin/CustomerManagement/CreateCustomerPage";
 import CustomerManagement from "./pages/Admin/CustomerManagement/CustomerManagement";
 import CustomerManagementDetail from "./pages/Admin/CustomerManagement/CustomerManagementDetailPage/CustomerManagementDetail";
@@ -64,6 +67,12 @@ function App() {
         <Route />
         <Route path="book_orders/create" element={<CreateBookOrderPage />} />
         <Route path="user/forgot-password" element={<ForgetPassword />} />
+        <Route
+          path="admin/contacts/:id"
+          element={<ContactManagementDetailPage />}
+        />
+        <Route path="admin/contacts" element={<ContactManagement />} />
+        <Route path="admin/contacts/create" element={<CreateContactPage />} />
       </Routes>
     </BrowserRouter>
   );
