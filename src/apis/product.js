@@ -1,13 +1,14 @@
 import axios from "axios";
 import { BASE_URL, requestWithToken } from "./Api";
 
-export const getAllProduct = (page, per_page) => {
+export const getAllProduct = (page, per_page, product_type_id) => {
   return axios({
     url: `${BASE_URL}/api/products`,
     method: "get",
     params: {
       page,
       per_page,
+      product_type_id,
     },
   });
 };

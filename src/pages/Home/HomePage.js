@@ -75,6 +75,9 @@ class HomePage extends Component {
     this.state = {
       products: [],
       productTypes: [],
+      page: 1,
+      hasViewMore: true,
+      product_type_id: null,
     };
   }
 
@@ -87,24 +90,21 @@ class HomePage extends Component {
       }
     });
 
-    Api.fetchProductTypes().then((res) => {
+    ApiProduct.getAllProductTypes().then((res) => {
       let productTypes = res.data?.data;
       if (Array.isArray(productTypes)) {
-        this.setState({ productTypes: productTypes.slice(0, 6) });
+        this.setState({ productTypes: productTypes });
       }
     });
-    Api.getCurrentUser(this.props.state.user?.token).then((res) => {
-      console.log(
-        `{RNLog} ~ file: HomePage.js ~ line 98 ~ HomePage ~ Api.getCurrentUser ~ res`,
-        res
-      );
-      // if (res.data?.data) {
-      //   this.props.dispatch({
-      //     type: ACTION_TYPE.SET_USER,
-      //     payload: res?.data.data,
-      //   });
-      // }
-    });
+    // Api.getCurrentUser(this.props.state.user?.token).then((res) => {
+
+    //   if (res.data?.data) {
+    //     this.props.dispatch({
+    //       type: ACTION_TYPE.SET_USER,
+    //       payload: res?.data.data,
+    //     });
+    //   }
+    // });
   }
 
   render() {
@@ -153,7 +153,11 @@ class HomePage extends Component {
           </CardGroup>
         </div>
         <div className="btn-viewmore">
-          <Button variant="success">Xem thêm</Button>
+          {this.state.hasViewMore && (
+            <Button variant="success" onClick={this.onViewMore}>
+              Xem thêm
+            </Button>
+          )}
         </div>
       </div>
     );
@@ -187,13 +191,39 @@ class HomePage extends Component {
     );
   }
 
+  onViewMore = () => {
+    const { page, products } = this.state;
+    ApiProduct.getAllProduct(page + 1, 10, this.state.product_type_id).then(
+      (res) => {
+        if (Array.isArray(res.data.data)) {
+          let newProducts = res.data.data;
+          this.setState({
+            products: [...products, ...res.data.data],
+            page: page + 1,
+            hasViewMore: newProducts.length === 10,
+          });
+        }
+      }
+    );
+  };
+
   onOrderClick = (item) => {
     console.log("{RNLog} TCL --> this.props:", this.props);
     this.props.dispatch({ type: ACTION_TYPE.ADD_ITEM_TO_CART, payload: item });
   };
 
   onClickChangeType = (product_type_id) => () => {
-    console.log("{RNLog} TCL --> product type id:", product_type_id);
+    this.setState({ page: 1, product_type_id, hasViewMore: true }, () => {
+      ApiProduct.getAllProduct(this.state.page, 10, product_type_id).then(
+        (res) => {
+          if (Array.isArray(res.data.data)) {
+            this.setState({
+              products: res.data.data,
+            });
+          }
+        }
+      );
+    });
   };
 
   onClickCarousel = () => {

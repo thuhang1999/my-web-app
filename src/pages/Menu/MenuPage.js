@@ -11,6 +11,9 @@ import BottomNavigator from "src/components/commons/BottomNavigator";
 import Navigator from "src/components/commons/Navigator";
 import OrderGroupButton from "src/components/commons/OrderGroupButton";
 import ExtraLgProductItem from "src/components/items/products/ExtraLgProductItem";
+import { ACTION_TYPE } from "src/stores/AppStore";
+import PaginationComponent from "react-bootstrap-pagination-logic";
+import { withContext } from "src/utils/commons/withContext";
 import { withParams } from "src/utils/commons/withParams";
 
 class MenuPage extends Component {
@@ -19,6 +22,8 @@ class MenuPage extends Component {
     this.state = {
       products: [],
       productTypes: [],
+      page: 1,
+      product_type_id: null,
     };
   }
 
@@ -40,10 +45,10 @@ class MenuPage extends Component {
       });
     }
 
-    Api.fetchProductTypes().then((res) => {
+    ApiProduct.getAllProductTypes().then((res) => {
       let productTypes = res.data?.data;
       if (Array.isArray(productTypes)) {
-        this.setState({ productTypes: productTypes.slice(0, 6) });
+        this.setState({ productTypes: productTypes });
       }
     });
   }
@@ -68,24 +73,12 @@ class MenuPage extends Component {
         <OrderGroupButton />
         {this.renderMealType()}
         {this.renderMainContent()}
-        <Pagination className="pagination-container">
-          {/* <Pagination.First /> */}
-          {/* <Pagination.Prev /> */}
-          <Pagination.Item active>{1}</Pagination.Item>
-
-          <Pagination.Item>{2}</Pagination.Item>
-          <Pagination.Item>{3}</Pagination.Item>
-          <Pagination.Item>{4}</Pagination.Item>
-          <Pagination.Ellipsis />
-          <Pagination.Item>{8}</Pagination.Item>
-          {/* <Pagination.Item disabled>{14}</Pagination.Item> */}
-
-          {/* <Pagination.Ellipsis />
-        <Pagination.Item>{20}</Pagination.Item> */}
-          {/* <Pagination.Next /> */}
-          <Pagination.Last />
-        </Pagination>
-        <BottomNavigator />
+        <PaginationComponent
+          current_page={this.state.page}
+          last_page={5}
+          position="center"
+          handlePageChange={this.handlePageChange}
+        />
       </div>
     );
   }
@@ -106,7 +99,7 @@ class MenuPage extends Component {
           <div className="list-product-item">
             <CardGroup>
               {products.map((e) => (
-                <ExtraLgProductItem data={e} />
+                <ExtraLgProductItem data={e} onClick={this.onOrderClick} />
               ))}
             </CardGroup>
           </div>
@@ -137,9 +130,31 @@ class MenuPage extends Component {
     );
   }
 
+  handlePageChange = (page) => {
+    ApiProduct.getAllProduct(page, 16).then((res) => {
+      let products = res.data?.data;
+      if (Array.isArray(products)) {
+        this.setState({ products, page }, () => {
+          window.scrollTo(0, 0);
+        });
+      }
+    });
+  };
+
+  onOrderClick = (item) => {
+    this.props.dispatch({ type: ACTION_TYPE.ADD_ITEM_TO_CART, payload: item });
+  };
+
   onClickChangeType = (product_type_id) => () => {
-    console.log("{RNLog} TCL --> product type id:", product_type_id);
+    this.setState({ page: 1 }, () => {
+      ApiProduct.getAllProduct(1, 16, product_type_id).then((res) => {
+        let products = res.data?.data;
+        if (Array.isArray(products)) {
+          this.setState({ products });
+        }
+      });
+    });
   };
 }
 
-export default withParams(MenuPage);
+export default withParams(withContext(MenuPage));

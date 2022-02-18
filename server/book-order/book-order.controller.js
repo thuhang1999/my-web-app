@@ -2,16 +2,14 @@ const express = require("express");
 const router = express.Router();
 const validateRequest = require("_middleware/validate-request");
 const adminAuthorize = require("_middleware/admin-authorize");
-const orderService = require("./order.service");
-const orderItemService = require("../order-items/order-item.service");
+const orderService = require("./book-order.service");
+const orderItemService = require("../book-items/book-item.service");
 
-//routes
+//Routes
 router.get("/", getAll);
 router.get("/:id", getOrderById);
 router.post("/create", createOrder);
-//TODO: requre admin authorization
 router.put("/:id", updateOrderById);
-//TODO: requre admin authorization
 router.delete("/:id", _delete);
 
 function getAll(req, res, next) {
@@ -34,18 +32,17 @@ function getOrderById(req, res, next) {
 }
 
 function createOrder(req, res, next) {
-  let carts = req.body["order_item"];
-  const { order_item, ...dataWithoutOrderItem } = req.body;
-  let order_items = [];
-  if (Array.isArray(carts)) {
-    order_items = carts.map((e) => JSON.parse(e));
+  let bookItems = req.params.book_items;
+  const { book_items, ...dataWithoutBookItems } = req.body;
+  let book_order_items = [];
+  if (Array.isArray(bookItems)) {
+    book_order_items = bookItems.map((e) => JSON.parse(e));
   }
 
   let params = {
-    ...dataWithoutOrderItem,
-    order_items,
+    ...dataWithoutBookItems,
+    book_order_items,
   };
-  console.log("{RNLog} TCL --> params:", params);
 
   orderService
     .create(params)
@@ -63,7 +60,7 @@ function updateOrderById(req, res, next) {
   orderService
     .update(req.params.id, req.body)
     .then((order) => {
-      let orderItems = req.body["order_item"];
+      let orderItems = req.body["book_items"];
       let orderItemsParsed = [];
       if (Array.isArray(orderItems)) {
         orderItemsParsed = orderItems.map((e) => JSON.parse(e));
@@ -106,7 +103,6 @@ function _delete(req, res, next) {
     res.json({
       data: "Order deleted successfully",
       status: 200,
-      success: true,
     });
   });
 }

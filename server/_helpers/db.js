@@ -37,6 +37,24 @@ async function initialize() {
   // init models and add them to the exported db object
   db.ProductType = require("../product-types/product-types.model")(sequelize);
 
+  // init models and add them to the exported db object
+  db.Contact = require("../contacts/contact.model")(sequelize);
+
+  // init models and add them to the exported db object
+  db.BookOrderItem = require("../book-items/book-item.model")(sequelize);
+
+  // init models and add them to the exported db object
+  db.BookOrder = require("../book-order/book-order.model")(sequelize);
+
+  db.BookOrder.hasMany(db.BookOrderItem, {
+    foreignKey: "book_order_id",
+    as: "book_order_items",
+  });
+
+  db.BookOrder.belongsTo(db.User, {
+    foreignKey: "customer_id",
+  });
+
   // create relationships between models.
   db.Order.hasMany(db.OrderItem, {
     foreignKey: "order_id",
@@ -47,6 +65,11 @@ async function initialize() {
   });
 
   db.Order.belongsTo(db.User, {
+    foreignKey: "customer_id",
+  });
+
+  //db.Contact ~ db.User
+  db.Contact.belongsTo(db.User, {
     foreignKey: "customer_id",
   });
 

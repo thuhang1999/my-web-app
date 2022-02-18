@@ -1,12 +1,5 @@
-const config = require("config.json");
-const orderItemService = require("../order-items/order-item.service");
+const bookOrderItemService = require("../book-items/book-item.service");
 const db = require("_helpers/db");
-
-/**
- * payment_method:
- * 1: COD
- * 2: Bank Transfer
- */
 
 module.exports = {
   getAll,
@@ -17,7 +10,7 @@ module.exports = {
 };
 
 async function getAll(params, page = 1, per_page = 10) {
-  return await db.Order.findAll({
+  return await db.BookOrder.findAll({
     offset: (page - 1) * per_page,
     limit: per_page * page,
     where: {
@@ -30,8 +23,8 @@ async function getAll(params, page = 1, per_page = 10) {
         attributes: ["username"],
       },
       {
-        model: db.OrderItem,
-        as: "order_items",
+        model: db.BookOrderItem,
+        as: "book_order_items",
         include: [
           {
             model: db.Product,
@@ -49,7 +42,7 @@ async function getById(id) {
 }
 
 async function getOrder(id) {
-  const order = await db.Order.findByPk(id, {
+  const order = await db.BookOrder.findByPk(id, {
     include: [
       {
         model: db.User,
@@ -57,8 +50,8 @@ async function getOrder(id) {
         attributes: ["username"],
       },
       {
-        model: db.OrderItem,
-        as: "order_items",
+        model: db.BookOrderItem,
+        as: "book_order_items",
         include: [
           {
             model: db.Product,
@@ -69,32 +62,32 @@ async function getOrder(id) {
       },
     ],
   });
-  // eslint-disable-next-line no-throw-literal
-  if (!order) throw "Order not found";
+  if (!order) throw new Error("Order not found");
   return order;
 }
 
 async function create(params) {
-  // save user
-  return await db.Order.create(params, {
+  const order = await db.BookOrder.create(params, {
     include: [
       {
-        model: db.OrderItem,
-        as: "order_items",
+        model: db.BookOrderItem,
+        as: "book_order_items",
       },
     ],
   });
+  return order;
 }
 
 async function update(id, params) {
-  const order = await getOrder(id);
-
+  const order = await db.BookOrder.findByPk(id);
+  if (!order) throw new Error("Order not found");
   await order.update(params);
   return order;
 }
 
 async function _delete(id) {
-  const order = await getOrder(id);
-  await orderItemService.deleteAllByOrderId(id);
+  const order = await db.BookOrder.findByPk(id);
+  if (!order) throw new Error("Order not found");
+  await bookOrderItemService.deleteAllByOrderId(id);
   await order.destroy();
 }

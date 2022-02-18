@@ -34,20 +34,15 @@ export const deleteOrderById = (id) => {
   });
 };
 
-export const createOrder = (
-  carts,
-  customer_id,
-  total_price,
-  payment_method,
-  address,
-  phone
-) => {
+export const createOrder = (objects) => {
+  const { customer_id, total_price, phone, address, payment_method, carts } =
+    objects;
   let formData = new FormData();
   formData.append("customer_id", customer_id);
   formData.append("total_price", total_price);
   formData.append("phone_number", phone);
   formData.append("address", address);
-  formData.append("payment_method", 1);
+  formData.append("payment_method", payment_method);
   carts.forEach((e) => {
     formData.append("order_item[]", JSON.stringify(e));
   });
