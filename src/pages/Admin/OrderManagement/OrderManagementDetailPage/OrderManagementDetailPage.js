@@ -71,7 +71,7 @@ class OrderManagementDetailPage extends Component {
             {"   "}
             <select name="SortBy" id="SortBy" onChange={this.onChangeStatus}>
               {Object.keys(ORDER_STATUS).map((e) => (
-                <option value={e} selected={this.state.order?.status === e}>
+                <option value={e} selected={this.state.order?.status == e}>
                   {ORDER_STATUS[e]}
                 </option>
               ))}
@@ -176,16 +176,17 @@ class OrderManagementDetailPage extends Component {
   };
 
   onClickUpdate = () => {
-    ApiOrder.updateOrderById(this.state.order.order_id, this.state.order).then(
-      (res) => {
-        if (res.data.success) {
-          alert("Cập nhật thành công");
-          window.location.reload();
-        } else {
-          alert("Có lỗi xảy ra. Vui lòng thử lại");
-        }
+    ApiOrder.updateOrderById(this.state.order.order_id, {
+      ...this.state.order,
+      order_item: this.state.order.order_items,
+    }).then((res) => {
+      if (res.data.success) {
+        alert("Cập nhật thành công");
+        window.location.reload();
+      } else {
+        alert("Có lỗi xảy ra. Vui lòng thử lại");
       }
-    );
+    });
   };
 }
 

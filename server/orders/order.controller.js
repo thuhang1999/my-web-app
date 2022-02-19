@@ -66,7 +66,12 @@ function updateOrderById(req, res, next) {
       let orderItems = req.body["order_item"];
       let orderItemsParsed = [];
       if (Array.isArray(orderItems)) {
-        orderItemsParsed = orderItems.map((e) => JSON.parse(e));
+        orderItemsParsed = orderItems.map((e) => {
+          if (typeof e === "string") {
+            return JSON.parse(e);
+          }
+          return e;
+        });
       }
 
       // not exists order item id ==> create order item
