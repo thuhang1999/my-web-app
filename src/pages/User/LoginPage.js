@@ -72,8 +72,12 @@ class LoginPage extends Component {
           payload: res.data?.data,
         });
         alert("Đăng nhập thành công");
-
-        this.props.navigate("/");
+        let user = res.data.data;
+        if (user.is_admin) {
+          this.props.navigate("/admin");
+        } else {
+          this.props.navigate("/");
+        }
       } else {
         alert(res.data?.message);
       }

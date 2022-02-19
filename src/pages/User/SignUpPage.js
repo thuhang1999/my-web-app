@@ -103,7 +103,7 @@ class SignUpPage extends Component {
         .then((res) => {
           console.log("{RNLog} TCL --> res:", res);
           if (res.data.status === 200) {
-            alert("Đăng nhập thành công");
+            alert("Đăng ký thành công");
             this.props.navigate("/user/login");
           } else {
             alert(res.data?.message);

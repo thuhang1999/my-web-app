@@ -27,6 +27,7 @@ const { Provider } = store;
 export const ACTION_TYPE = {
   ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
   REMOVE_ITEM_TO_CART: "REMOVE_ITEM_TO_CART",
+  DELETE_ITEM_FROM_CART: "DELETE_ITEM_FROM_CART",
   FETCH_LOCAL_CART: "FETCH_LOCAL_CART",
   RESET_CART: "RESET_CART",
   SET_USER: "SET_USER",
@@ -68,6 +69,20 @@ const StateProvider = ({ children }) => {
           } else {
             carts.splice(index2, 1);
           }
+          localStorage.setItem(CART_DATA_CACHE_KEY, JSON.stringify(carts));
+        }
+        return {
+          ...currentState,
+          carts,
+          cartAmount: carts.reduce((prev, e) => prev + e.amount, 0),
+        };
+
+      case ACTION_TYPE.DELETE_ITEM_FROM_CART:
+        let index3 = carts.findIndex(
+          (e) => e.product_id === payload.product_id
+        );
+        if (index3 !== -1) {
+          carts.splice(index3, 1);
           localStorage.setItem(CART_DATA_CACHE_KEY, JSON.stringify(carts));
         }
         return {

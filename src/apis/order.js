@@ -38,7 +38,9 @@ export const createOrder = (objects) => {
   const { customer_id, total_price, phone, address, payment_method, carts } =
     objects;
   let formData = new FormData();
-  formData.append("customer_id", customer_id);
+  if (customer_id) {
+    formData.append("customer_id", customer_id);
+  }
   formData.append("total_price", total_price);
   formData.append("phone_number", phone);
   formData.append("address", address);

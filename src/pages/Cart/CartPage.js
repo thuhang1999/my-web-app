@@ -29,7 +29,7 @@ class CartPage extends Component {
             {this.renderCartHeader()}
             {carts.map(this.renderCartItem)}
             <tr>
-              <Button variant="success">Thêm đồ</Button>
+              <Button href={"/menu"}>Thêm đồ</Button>
             </tr>
           </table>
           {this.renderSumary()}
@@ -74,7 +74,9 @@ class CartPage extends Component {
     return (
       <tr key={item.product_id}>
         <td>
-          <Button variant="link">Xóa</Button>
+          <Button variant="link" onClick={this.onClickDelete(item)}>
+            Xóa
+          </Button>
         </td>
         <td>
           <img className="img" alt={item?.product_name} src={item?.image}></img>
@@ -122,6 +124,13 @@ class CartPage extends Component {
       </div>
     );
   }
+
+  onClickDelete = (item) => () => {
+    this.props.dispatch({
+      type: ACTION_TYPE.DELETE_ITEM_FROM_CART,
+      payload: item,
+    });
+  };
 
   onDescItemClick = (item) => () => {
     this.props.dispatch({

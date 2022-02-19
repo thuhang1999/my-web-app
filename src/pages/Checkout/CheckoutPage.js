@@ -18,8 +18,8 @@ class CheckoutPage extends Component {
     super(props);
     this.payment_method = PAYMENT_METHOD.COD;
     this.state = {
-      phone: this.props.state.user.phone_number,
-      address: this.props.state.user.address,
+      phone: this.props.state.user?.phone_number,
+      address: this.props.state.user?.address,
     };
   }
   render() {
@@ -45,7 +45,10 @@ class CheckoutPage extends Component {
         <h4>Thông tin vận chuyển</h4>
         {!this.props.state.user && (
           <div>
-            Bạn đã có tài khoản ? <Button variant="link">Đăng nhập</Button>
+            Bạn đã có tài khoản ?{" "}
+            <Button variant="link" href="/user/login">
+              Đăng nhập
+            </Button>
           </div>
         )}
         {!!this.props.state.user && (
@@ -128,7 +131,7 @@ class CheckoutPage extends Component {
           <Button variant="success" onClick={this.onClickSubmit}>
             Đặt hàng
           </Button>
-          <Button variant="link" onClick={this.onClickSubmit}>
+          <Button variant="link" href="/cart">
             Giỏ hàng
           </Button>
         </div>
@@ -224,7 +227,7 @@ class CheckoutPage extends Component {
       0
     );
     ApiOrder.createOrder({
-      customer_id: this.props.state.user.id,
+      customer_id: this.props.state.user?.id,
       carts: this.props.state.carts,
       total_price: amount,
       payment_method: this.payment_method,
