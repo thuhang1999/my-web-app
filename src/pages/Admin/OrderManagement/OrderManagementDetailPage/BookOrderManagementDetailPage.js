@@ -101,7 +101,7 @@ class BookOrderManagementDetailPage extends Component {
                 as="select"
               >
                 {Object.keys(BOOK_ORDER_STATUS).map((key) => (
-                  <option selected={this.state.order.status == key}>
+                  <option selected={this.state.order.status == key} value={key}>
                     {BOOK_ORDER_STATUS[key]}
                   </option>
                 ))}
