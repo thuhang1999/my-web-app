@@ -43,6 +43,14 @@ class OrderManagementDetailPage extends Component {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Số điện thoại đặt hàng</Form.Label>
+              <Form.Control
+                value={order?.phone_number}
+                type="text"
+                onChange={this.onChangePhoneNumber}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Địa chỉ giao hàng</Form.Label>
               <Form.Control
                 value={order?.address}
@@ -59,6 +67,7 @@ class OrderManagementDetailPage extends Component {
                 type="datetime"
               />
             </Form.Group>
+
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Tổng giá trị đơn hàng</Form.Label>
               <Form.Control
@@ -153,6 +162,15 @@ class OrderManagementDetailPage extends Component {
       order: {
         ...this.state.order,
         address: e.target.value,
+      },
+    });
+  };
+
+  onChangePhoneNumber = (e) => {
+    this.setState({
+      order: {
+        ...this.state.order,
+        phone_number: e.target.value,
       },
     });
   };

@@ -42,7 +42,11 @@ class CartPage extends Component {
           >
             Thanh toán
           </Button>
-          <Button variant="danger" className="order-btn">
+          <Button
+            variant="danger"
+            className="order-btn"
+            href={"book-orders/create"}
+          >
             Đặt bàn
           </Button>
         </div>
