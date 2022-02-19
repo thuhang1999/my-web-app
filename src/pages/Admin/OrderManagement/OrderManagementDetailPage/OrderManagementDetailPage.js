@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { ApiOrder } from "src/apis";
+import { ORDER_STATUS } from "src/types/CommonTypes";
 import { format } from "src/utils/commons/Number";
 import { withParams } from "src/utils/commons/withParams";
 import { withRouter } from "src/utils/commons/withRouter";
@@ -56,7 +57,6 @@ class OrderManagementDetailPage extends Component {
                 value={order?.created_at}
                 disabled
                 type="datetime"
-
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -70,11 +70,11 @@ class OrderManagementDetailPage extends Component {
             <label for="SortBy">Trạng thái đơn hàng</label>
             {"   "}
             <select name="SortBy" id="SortBy" onChange={this.onChangeStatus}>
-              <option value={0}>Đang chờ xác nhận</option>
-              <option value={1}>Đã xác nhận</option>
-              <option value={2}>Đang giao</option>
-              <option value={3}>Đã giao</option>
-              <option value={4}>Hoàn thành</option>
+              {Object.keys(ORDER_STATUS).map((e) => (
+                <option value={e} selected={this.state.order?.status === e}>
+                  {ORDER_STATUS[e]}
+                </option>
+              ))}
             </select>
           </div>
           <br />
@@ -98,7 +98,9 @@ class OrderManagementDetailPage extends Component {
           </div>
         </Form>
         <div className="btn">
-          <Button variant="secondary">Sửa</Button>{" "}
+          <Button variant="secondary" onClick={this.onClickUpdate}>
+            Sửa
+          </Button>{" "}
           <Button variant="secondary" onClick={this.onClickDeleteOrder}>
             Xóa
           </Button>{" "}
@@ -144,6 +146,46 @@ class OrderManagementDetailPage extends Component {
         alert("Có lỗi xảy ra. Vui lòng thử lại");
       }
     });
+  };
+
+  onChangeAddress = (e) => {
+    this.setState({
+      order: {
+        ...this.state.order,
+        address: e.target.value,
+      },
+    });
+  };
+
+  onChangeTotalPrice = (e) => {
+    this.setState({
+      order: {
+        ...this.state.order,
+        total_price: e.target.value,
+      },
+    });
+  };
+
+  onChangeStatus = (e) => {
+    this.setState({
+      order: {
+        ...this.state.order,
+        status: e.target.value,
+      },
+    });
+  };
+
+  onClickUpdate = () => {
+    ApiOrder.updateOrderById(this.state.order.order_id, this.state.order).then(
+      (res) => {
+        if (res.data.success) {
+          alert("Cập nhật thành công");
+          window.location.reload();
+        } else {
+          alert("Có lỗi xảy ra. Vui lòng thử lại");
+        }
+      }
+    );
   };
 }
 

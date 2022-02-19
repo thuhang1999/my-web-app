@@ -50,7 +50,9 @@ class BookOrderManagerment extends Component {
               Thêm đơn đặt bàn
             </Button>{" "}
             {/* <Button variant="secondary">Thêm đơn đặt bàn</Button>{" "} */}
-            <Button variant="link">Thoát</Button>
+            <Button variant="link" href={"/admin"}>
+              Thoát
+            </Button>
           </>
         </div>
         <br></br>

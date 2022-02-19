@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import moment from "moment";
 import { Button, Col, Dropdown, Form } from "react-bootstrap";
 import { ApiOrder } from "src/apis";
 import { format } from "src/utils/commons/Number";
 import { withRouter } from "src/utils/commons/withRouter";
+import { ORDER_STATUS } from "src/types/CommonTypes";
 
 class OrderManagement extends Component {
   constructor(props) {
@@ -51,9 +53,13 @@ class OrderManagement extends Component {
         <br></br>
         <div>
           <>
-            <Button variant="secondary">Thêm đơn ship</Button>{" "}
+            <Button variant="secondary" href={"/checkout"}>
+              Thêm đơn ship
+            </Button>{" "}
             {/* <Button variant="secondary">Thêm đơn đặt bàn</Button>{" "} */}
-            <Button variant="link">Thoát</Button>
+            <Button variant="link" href={"/admin"}>
+              Thoát
+            </Button>
           </>
         </div>
 
@@ -91,9 +97,11 @@ class OrderManagement extends Component {
       <tr key={item?.order_id}>
         <td class="text-center">{item?.order_id}</td>
         <td class="text-center">{item?.user?.username}</td>
-        <td class="text-center">{item?.order_time}</td>
+        <td class="text-center">
+          {moment(item?.order_time).format("DD/MM/YYYY HH:mm")}
+        </td>
         <td class="text-center">{format(item?.total_price)} đ</td>
-        <td class="text-center"></td>
+        <td class="text-center">{ORDER_STATUS[item?.status ?? 0]}</td>
         <td class="text-center">
           <Button variant="link" onClick={this.onClickEditOrderItem(item)}>
             Xem chi tiết

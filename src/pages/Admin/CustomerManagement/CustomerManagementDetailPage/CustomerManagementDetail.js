@@ -72,7 +72,7 @@ class CustomerManagementDetail extends Component {
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
               >
-                <Form.Label>Gian lận</Form.Label>
+                <Form.Label>Nghi vấn gian lận ?</Form.Label>
                 <Form.Check
                   type="checkbox"
                   checked={user?.fraud}
@@ -158,7 +158,6 @@ class CustomerManagementDetail extends Component {
   };
 
   onClickUpdate = (e) => {
-    console.log("{RNLog} TCL --> user:", this.state.user);
     Api.updateUserById(this.state.user.id, this.state.user).then((res) => {
       if (res.data.success) {
         alert("Cập nhật thành công");
