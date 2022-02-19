@@ -14,6 +14,7 @@ import CreateProductPage from "./pages/Admin/ProductManagement/ProductDetailPage
 import ProductManagerDetailPage from "./pages/Admin/ProductManagement/ProductDetailPage/ProductManagerDetailPage";
 import ProductManagement from "./pages/Admin/ProductManagement/ProductManagement";
 import CartPage from "./pages/Cart/CartPage";
+import BookOrderPage from "./pages/Checkout/BookOrderPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 import ContactPage from "./pages/Contact/ContactPage";
 import HomePage from "./pages/Home/HomePage";
@@ -73,6 +74,7 @@ function App() {
         />
         <Route path="admin/contacts" element={<ContactManagement />} />
         <Route path="admin/contacts/create" element={<CreateContactPage />} />
+        <Route path="book-order/create" element={<BookOrderPage />} />
       </Routes>
     </BrowserRouter>
   );

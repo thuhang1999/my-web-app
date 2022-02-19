@@ -8,23 +8,23 @@ export default class OrderGroupButton extends Component {
       <div className="order-group">
         <div className="order-group-item">
           <div className="order-group-item-img">
-            <a href="/order/book-table" target="">
+            <a href="/book-order/create" target="">
               <img src={iconOrderTable} alt="Đặt bàn" className="img" />
             </a>
           </div>
           <div className="order-group-item-title">
-            <a href="/order/book-table">Đặt bàn</a>
+            <a href="/book-order/create">Đặt bàn</a>
           </div>
         </div>
 
         <div className="order-group-item">
           <div className="order-group-item-img">
-            <a href="/order/book-table" target="">
+            <a href="/menu" target="">
               <img src={iconOrderShip} alt="Đặt bàn" className="img" />
             </a>
           </div>
           <div className="order-group-item-title">
-            <a href="/order/book-table">Đặt ship</a>
+            <a href="/menu">Đặt ship</a>
           </div>
         </div>
       </div>

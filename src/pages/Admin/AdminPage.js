@@ -81,6 +81,7 @@ class AdminPage extends Component {
                         Cấu hình User
                       </NavDropdown.Item>
                     </NavDropdown>
+                    <Nav.Link href="/">Trang chủ</Nav.Link>
                   </Nav>
                 </Navbar.Collapse>
               </Container>
