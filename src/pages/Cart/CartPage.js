@@ -45,7 +45,7 @@ class CartPage extends Component {
           <Button
             variant="danger"
             className="order-btn"
-            href={"book-orders/create"}
+            href={"book-order/create"}
           >
             Đặt bàn
           </Button>
