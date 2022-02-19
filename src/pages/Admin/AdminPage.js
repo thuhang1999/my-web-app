@@ -69,6 +69,9 @@ class AdminPage extends Component {
                       Quản trị sản phẩm
                     </Nav.Link>
                     <Nav.Link href="/admin/orders">Quản trị đơn hàng</Nav.Link>
+                    <Nav.Link href="/admin/book-orders">
+                      Quản trị đơn đặt bàn
+                    </Nav.Link>
                     <Nav.Link href="/admin/contacts">Quản trị liên hệ</Nav.Link>
                     <NavDropdown
                       title="Quản trị người dùng"

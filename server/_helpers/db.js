@@ -60,6 +60,11 @@ async function initialize() {
     foreignKey: "order_id",
     as: "order_items",
   });
+
+  db.BookOrderItem.belongsTo(db.BookOrder, {
+    foreignKey: "book_order_id",
+  });
+
   db.OrderItem.belongsTo(db.Order, {
     foreignKey: "order_id",
   });
@@ -79,6 +84,10 @@ async function initialize() {
   });
   // db.orderItem ~ db.Product.
   db.OrderItem.belongsTo(db.Product, {
+    foreignKey: "product_id",
+  });
+
+  db.BookOrderItem.belongsTo(db.Product, {
     foreignKey: "product_id",
   });
 

@@ -74,12 +74,14 @@ function updateOrderById(req, res, next) {
 
       // check if order was not in order_item body, delete them;
       let neededDeleteOrderItem = [];
-      order.dataValues.order_items.forEach((e) => {
-        // not found
-        if (orderItemsParsed.findIndex((e2) => e2.id === e.id) === -1) {
-          neededDeleteOrderItem.push(e);
-        }
-      });
+      if (Array.isArray(order.book_order_items)) {
+        order.dataValues.order_items.forEach((e) => {
+          // not found
+          if (orderItemsParsed.findIndex((e2) => e2.id === e.id) === -1) {
+            neededDeleteOrderItem.push(e);
+          }
+        });
+      }
 
       Promise.all([
         ...neededCreateOrderItem.map((e) => orderItemService.create(e)),

@@ -88,6 +88,6 @@ async function update(id, params) {
 async function _delete(id) {
   const order = await db.BookOrder.findByPk(id);
   if (!order) throw new Error("Order not found");
-  await bookOrderItemService.deleteAllByOrderId(id);
+  // await bookOrderItemService.deleteAllByOrderId(id);
   await order.destroy();
 }

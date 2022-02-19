@@ -73,9 +73,13 @@ async function _delete(orderItemId) {
 }
 
 async function deleteAllByOrderId(orderId) {
+  // not works
+  if (typeof orderId !== "number") {
+    orderId = Number(orderId);
+  }
   db.BookOrderItem.destroy({
     where: {
-      order_id: orderId,
+      book_order_id: orderId,
     },
   });
 }
