@@ -77,30 +77,7 @@ class OrderManagement extends Component {
             {this.state.orders.map(this.renderOrderItem)}
           </table>
         </div>
-        {/* <div className="tb_1">
-          <table className="tb_product_management" border="1">
-            <tr>
-              <th colspan="3">DANH SÁCH ĐƠN ĐẶT BÀN</th>
-            </tr>
-            <tr>
-              <th>Mã đơn đặt bàn</th>
-              <th>Tên khách hàng</th>
-              <th>Thời gian đặt bàn</th>
-              <th>Tổng giá trị</th>
-              <th>Xem chi tiết</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Cá chép om dưa</td>
-              <td></td>
-              <td>200000</td>
 
-              <td>
-                <Button variant="link">Xem chi tiết</Button>
-              </td>
-            </tr>
-          </table>
-        </div> */}
         <br></br>
         <Button className="text-center" onClick={this.onClickViewMore}>
           Xem thêm

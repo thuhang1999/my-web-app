@@ -34,6 +34,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
+    "postinstall": "cd server && yarn && cd ..",
     "start": "concurrently \"cd server && node server.js && cd ..\" \"react-app-rewired start\"",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",

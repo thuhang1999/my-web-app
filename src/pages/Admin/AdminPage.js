@@ -78,7 +78,7 @@ class AdminPage extends Component {
                         Quản lý khách hàng
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/admin/users">
-                        Cấu hình User
+                        Cấu hình Admin
                       </NavDropdown.Item>
                     </NavDropdown>
                   </Nav>

@@ -24,10 +24,11 @@ import CreateContactPage from "../Admin/ContactManagement/ContactManagementDetai
 import BookOrderPage from "../Checkout/BookOrderPage";
 import ContactManagementDetailPage from "../Admin/ContactManagement/ContactManagementDetailPage/ContactManagementDetailPage";
 import AccountAdminPage from "../Admin/CustomerManagement/CustomerManagementDetailPage/AccountAdminPage"
+import BookOrderManagerment from "../Admin/OrderManagement/BookOrderManagerment";
 
 
 export default class StoryBook extends Component {
   render() {
-    return <AccountAdminPage />;
+    return <CreateBookOrderPage />;
   }
 }
