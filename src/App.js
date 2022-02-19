@@ -75,6 +75,7 @@ function App() {
         <Route path="admin/contacts" element={<ContactManagement />} />
         <Route path="admin/contacts/create" element={<CreateContactPage />} />
         <Route path="book-order/create" element={<BookOrderPage />} />
+        <Route path="user/detail" element={<UserPage />} />
       </Routes>
     </BrowserRouter>
   );

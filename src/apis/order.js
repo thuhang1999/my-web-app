@@ -1,13 +1,14 @@
 import axios from "axios";
 import { BASE_URL } from "./Api";
 
-export const getAllOrders = (page, per_page) => {
+export const getAllOrders = (page, per_page, query = {}) => {
   return axios({
     url: `${BASE_URL}/api/orders`,
     method: "get",
     params: {
       page,
       per_page,
+      ...query,
     },
   });
 };
