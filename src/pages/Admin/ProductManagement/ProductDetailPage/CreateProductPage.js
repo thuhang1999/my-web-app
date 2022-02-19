@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Button, Dropdown, Form } from "react-bootstrap";
 import Api, { ApiProduct } from "src/apis";
+import { withRouter } from "src/utils/commons/withRouter";
 
-export default class CreateProductPage extends Component {
+class CreateProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,8 +49,8 @@ export default class CreateProductPage extends Component {
           </Form.Group>
 
           <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Tải lên hình ảnh sản phẩm</Form.Label>
-            <Form.Control type="file" onChange={this.onChangeProductImage} />
+            <Form.Label>Chọn đường dẫn sản phẩm</Form.Label>
+            <Form.Control type="text" onChange={this.onChangeProductImage} />
           </Form.Group>
 
           <div class="form-horizontal text-right">
@@ -109,10 +110,7 @@ export default class CreateProductPage extends Component {
   };
 
   onChangeProductImage = (event) => {
-    console.log(
-      `{RNLog} ~ file: CreateProductPage.js ~ line 99 ~ CreateProductPage ~ event`,
-      event
-    );
+    this.product_image_url = event.target.value;
   };
 
   onChangeProductType = (event) => {
@@ -128,10 +126,12 @@ export default class CreateProductPage extends Component {
       product_type_id: this.product_type_id,
       image: this.product_image_url,
     }).then((res) => {
-      console.log(
-        `{RNLog} ~ file: CreateProductPage.js ~ line 75 ~ CreateProductPage ~ res`,
-        res
-      );
+      if (res.data.success) {
+        alert("Thêm sản phẩm thành công");
+        this.props.navigate("/admin/products");
+      }
     });
   };
 }
+
+export default withRouter(CreateProductPage);

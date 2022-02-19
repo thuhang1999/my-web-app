@@ -11,11 +11,18 @@ class ProductManagement extends Component {
       products: [],
       page: 1,
       hasViewMore: true,
+      productTypes: [],
     };
   }
 
   componentDidMount() {
     this.fetchData(this.state.page);
+    ApiProduct.getAllProductTypes().then((res) => {
+      let productTypes = res.data?.data;
+      if (Array.isArray(productTypes)) {
+        this.setState({ productTypes: productTypes });
+      }
+    });
   }
 
   fetchData = async (page) => {
@@ -74,6 +81,7 @@ class ProductManagement extends Component {
           </>
         </div>
         <br></br>
+        {this.renderMealType()}
         <div className="tb_admin">
           <table className="tb_admin" border="1">
             <tr>
@@ -101,6 +109,36 @@ class ProductManagement extends Component {
       </div>
     );
   }
+
+  renderMealType() {
+    const { products, productTypes } = this.state;
+
+    return (
+      <div className="meal-type-gp-btn">
+        {productTypes.map((e) => (
+          <>
+            <Button
+              className="meal-type-btn"
+              onClick={this.onClickChangeType(e.product_type_id)}
+            >
+              {e.product_type_name}
+            </Button>{" "}
+          </>
+        ))}
+      </div>
+    );
+  }
+
+  onClickChangeType = (product_type_id) => () => {
+    this.setState({ page: 1 }, () => {
+      ApiProduct.getAllProduct(1, 16, product_type_id).then((res) => {
+        let products = res.data?.data;
+        if (Array.isArray(products)) {
+          this.setState({ products });
+        }
+      });
+    });
+  };
 
   renderProductItem = (item) => {
     return (

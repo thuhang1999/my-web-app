@@ -49,6 +49,9 @@ class Navigator extends Component {
             )}
             {!!this.props.state.user && (
               <Dropdown.Menu>
+                {this.props.state.user?.is_admin && (
+                  <Dropdown.Item href="/admin">Trang quản trị</Dropdown.Item>
+                )}
                 <Dropdown.Item href="/user/detail">
                   Xin chào, {this.props.state.user.username}
                 </Dropdown.Item>

@@ -10,6 +10,7 @@ class ProductManagerDetailPage extends Component {
     super(props);
     this.state = {
       product: null,
+      productTypes: [],
     };
   }
 
@@ -22,9 +23,17 @@ class ProductManagerDetailPage extends Component {
         });
       }
     });
+    ApiProduct.getAllProductTypes().then((res) => {
+      if (res.data.success && Array.isArray(res.data.data)) {
+        this.setState({
+          productTypes: res.data.data,
+        });
+      }
+    });
   }
 
   render() {
+    console.log("{RNLog} TCL --> productType:", this.state.productTypes);
     return (
       <div className="manager-detail-page">
         <h1>Chi tiết sản phẩm</h1>
@@ -68,12 +77,26 @@ class ProductManagerDetailPage extends Component {
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Loại sản phẩm</Form.Label>
+            <Form.Select onChange={this.onChangeProductTypeId}>
+              {this.state.productTypes.map((e) => (
+                <option
+                  value={e.product_type_id}
+                  selected={
+                    this.state.product?.product_type_id === e.product_type_id
+                  }
+                >
+                  {e.product_type_name}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Đường link hình ảnh sản phẩm</Form.Label>
             <Form.Control
-              value={this.state.product?.product_type_id}
+              value={this.state.product?.image}
               type="text"
-              placeholder="Nhập loại sản phẩm"
-              disabled
-              onChange={this.onChangeProductTypeId}
+              placeholder="Nhập đường link hình ảnh sản phẩm"
+              onChange={this.onChangeImageUrl}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -106,6 +129,15 @@ class ProductManagerDetailPage extends Component {
       </div>
     );
   }
+
+  onChangeImageUrl = (e) => {
+    this.setState({
+      product: {
+        ...this.state.product,
+        image: e.target.value,
+      },
+    });
+  };
 
   onChangeProductName = (e) => {
     this.setState({
